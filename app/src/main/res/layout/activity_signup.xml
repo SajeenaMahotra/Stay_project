@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/stayLogo"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginStart="136dp"
@@ -26,7 +26,7 @@
         app:srcCompat="@drawable/staylogo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/signupText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
@@ -39,15 +39,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/fullnameText"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/signupText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullnameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -55,7 +56,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/emailText"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
@@ -63,9 +64,10 @@
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/fullnameText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -73,7 +75,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/date"
+        android:id="@+id/dateText"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
@@ -81,10 +83,10 @@
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/emailText">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dateEdit"
+            android:id="@+id/dateInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -92,7 +94,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
+            android:id="@+id/signupButton"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -106,10 +108,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordText" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/genderText"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="350dp"
         android:layout_height="60dp"
@@ -118,10 +120,10 @@
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date">
+        app:layout_constraintTop_toBottomOf="@+id/dateText">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/genderInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
@@ -132,7 +134,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/passwordText"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
@@ -141,9 +143,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:endIconMode="password_toggle"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/genderText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -151,7 +154,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout5"
+        android:id="@+id/confirmPasswordText"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
@@ -160,9 +163,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:endIconMode="password_toggle"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/passwordText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -170,7 +174,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/alreadyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
@@ -180,10 +184,10 @@
         android:textSize="16dp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
     <TextView
-        android:id="@+id/login"
+        android:id="@+id/loginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
@@ -192,8 +196,8 @@
         android:text="Log In."
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/alreadyText"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

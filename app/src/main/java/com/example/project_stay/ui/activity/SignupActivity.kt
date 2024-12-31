@@ -26,9 +26,9 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.dateEdit.isClickable = true
-        binding.dateEdit.isFocusable = false
-        binding.dateEdit.setOnClickListener {
+        binding.dateInput.isClickable = true
+        binding.dateInput.isFocusable = false
+        binding.dateInput.setOnClickListener {
             loadCalendar()
         }
 
@@ -38,9 +38,9 @@ class SignupActivity : AppCompatActivity() {
             gender
         )
 
-        binding.autoCompleteTextView.setAdapter(adapter)
+        binding.genderInput.setAdapter(adapter)
 
-        binding.login.setOnClickListener {
+        binding.loginText.setOnClickListener {
             val intent = Intent(
                 this@SignupActivity,
                 MainActivity :: class.java
@@ -64,7 +64,7 @@ class SignupActivity : AppCompatActivity() {
         val dialog = DatePickerDialog(
             this@SignupActivity,
             DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                binding.dateEdit.setText("$year/${month + 1}/$day")
+                binding.dateInput.setText("$year/${month + 1}/$day")
             }, year, month, day
         )
         dialog.show()
