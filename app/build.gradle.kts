@@ -8,7 +8,7 @@ android {
         viewBinding=true
     }
     namespace = "com.example.project_stay"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.project_stay"
