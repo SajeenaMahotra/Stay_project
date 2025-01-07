@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,8 +8,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.OnboardingActivity">
 
+    <!-- Skip Button -->
     <Button
-        android:id="@+id/skipbtn"
+        android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
@@ -21,38 +23,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- ViewPager2 for slides -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/slideViewPager"
         android:layout_width="match_parent"
         android:layout_height="595dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Next Button -->
     <Button
-        android:id="@+id/nextbtn"
+        android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="33dp"
         android:layout_marginBottom="83dp"
         android:background="#00000000"
         android:fontFamily="@font/montserrat"
-        android:text="Button"
+        android:text="Next"
         android:textColor="@color/stay_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    
+
+    <!-- Page Indicator Layout -->
     <LinearLayout
-        android:id="@+id/indicator_layout"
+        android:id="@+id/indicatorContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/slideViewPager">
-
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,59 +5,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#FFFFFF">
 
-    <!-- Title Text: "Find Your" -->
+    android:background="@color/white">
+
+
+
     <TextView
-        android:id="@+id/textTitleLine1"
-        android:layout_width="wrap_content"
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find Your"
-        android:textSize="24sp"
+        android:layout_marginStart="32dp"
         android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
+        android:gravity="start"
+        android:text="Title Placeholder"
         android:textColor="#000000"
-        android:layout_marginTop="" />
-
-    <!-- Title Text: "Perfect Stay." -->
-    <TextView
-        android:id="@+id/textTitleLine2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfect "
         android:textSize="24sp"
-        android:fontFamily="@font/montserrat"
         android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_marginTop="8dp" />
-
-
-    <TextView
-        android:id="@+id/textStay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:fontFamily="@font/montserrat"
-        android:text="Stay."
-        android:textColor="#FF0000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:lineSpacingExtra="2dp"
+        android:breakStrategy="simple"/>
 
     <TextView
         android:id="@+id/textDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop=""
-        android:fontFamily="@font/montserrat"
-        android:text="Discover the best hotels\nat your fingertips."
-        android:textColor="#000000"
-        android:textSize="16sp" />
-
-    <ImageView
-        android:id="@+id/titleImage"
         android:layout_width="match_parent"
-        android:layout_height="295dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/slideone" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="Description Placeholder"
+        android:textSize="16sp"
+        android:gravity="start"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#000000"
+        android:lineSpacingExtra="2dp"
+        android:breakStrategy="simple"/>
 
+    <!-- Image of the slide -->
+    <ImageView
+        android:id="@+id/slideImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/placeholder_imageee"
+        android:contentDescription="Slide Image" />
 </LinearLayout>
