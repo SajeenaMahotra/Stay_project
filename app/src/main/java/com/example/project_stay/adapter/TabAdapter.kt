@@ -1,11 +1,10 @@
-package com.example.project_stay.ui
+package com.example.project_stay.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.project_stay.ui.fragment.AllFragment
-import com.example.project_stay.ui.fragment.HomeFragment
 import com.example.project_stay.ui.fragment.NearbyFragment
 import com.example.project_stay.ui.fragment.OffersFragment
 import com.example.project_stay.ui.fragment.PopularFragment

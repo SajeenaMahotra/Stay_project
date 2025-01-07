@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.project_stay.R
 import com.example.project_stay.databinding.FragmentHomeBinding
-import com.example.project_stay.ui.TabAdapter
-import com.google.android.material.tabs.TabLayout
+import com.example.project_stay.adapter.TabAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match

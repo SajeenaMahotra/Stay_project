@@ -1,7 +1,6 @@
 package com.example.project_stay.ui.activity
 
 import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -9,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.project_stay.R
-import com.example.project_stay.ui.OnboardingAdapter
+import com.example.project_stay.adapter.OnboardingAdapter
 import com.example.project_stay.ui.OnboardingItem
 
 class OnboardingActivity : AppCompatActivity() {
