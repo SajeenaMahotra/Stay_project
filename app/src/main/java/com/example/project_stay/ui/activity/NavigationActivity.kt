@@ -27,10 +27,6 @@ class NavigationActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -48,8 +44,6 @@ class NavigationActivity : AppCompatActivity() {
             }
             true
         }
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
