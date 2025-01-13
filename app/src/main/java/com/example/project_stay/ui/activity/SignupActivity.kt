@@ -64,7 +64,7 @@ class SignupActivity : AppCompatActivity() {
         val dialog = DatePickerDialog(
             this@SignupActivity,
             DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                binding.dateInput.setText("$year/${month + 1}/$day")
+                binding.dateInput.setText("$year/${month + 1}/$dayOfMonth")
             }, year, month, day
         )
         dialog.show()
