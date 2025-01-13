@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/staylogo"
+            android:src="@drawable/soaltee"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +28,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="8dp"
-            android:background="@drawable/custom_button"
+            android:background="@drawable/custom_wishlist_button"
             android:contentDescription="Favorite Button"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:src="@drawable/baseline_favorite_border_24"
             app:layout_constraintEnd_toEndOf="@id/hotelImage"
             app:layout_constraintTop_toTopOf="@id/hotelImage" />
