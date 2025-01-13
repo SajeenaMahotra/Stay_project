@@ -13,8 +13,8 @@ import com.example.project_stay.databinding.ActivityLoginBinding
 import com.example.project_stay.databinding.ActivityNavigationBinding
 import com.example.project_stay.ui.fragment.BookingFragment
 import com.example.project_stay.ui.fragment.HomeFragment
-import com.example.project_stay.ui.fragment.ProfileFragment
 import com.example.project_stay.ui.fragment.WishlistFragment
+import com.example.yourapp.ProfileFragment
 
 class NavigationActivity : AppCompatActivity() {
     lateinit var binding: ActivityNavigationBinding
