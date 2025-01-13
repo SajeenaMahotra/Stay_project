@@ -90,6 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
+            android:drawableRight="@drawable/baseline_calendar_today_24"
+            android:drawableTint="@color/gray"
             android:hint="Date of Birth" />
     </com.google.android.material.textfield.TextInputLayout>
 
