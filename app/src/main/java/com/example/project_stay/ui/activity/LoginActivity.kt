@@ -5,22 +5,31 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.inputmethod.InputBinding
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.project_stay.R
 import com.example.project_stay.databinding.ActivityLoginBinding
+import com.example.project_stay.model.UserModel
+import com.example.project_stay.repository.UserRepository
+import com.example.project_stay.repository.UserRepositoryImpl
+import com.example.project_stay.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding=ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var repo = UserRepositoryImpl()
+        userViewModel=UserViewModel(repo)
 
         sharedPreferences=getSharedPreferences("user", Context.MODE_PRIVATE)
 
@@ -46,14 +55,21 @@ class LoginActivity : AppCompatActivity() {
 
                     editor.putString("email",email)
                     editor.putString("password",password)
-
                     editor.apply()
+                }else  {
+                    userViewModel.login(email,password){
+                            success,message->
+                        if(success){
+                            Toast.makeText(this@LoginActivity,message, Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@LoginActivity,NavigationActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }else{
+                            Toast.makeText(applicationContext,message, Toast.LENGTH_LONG).show()
+
+                        }
+                    }
                 }
-                val intent =Intent(
-                    this@LoginActivity,
-                    SignupActivity::class.java
-                )
-                startActivity(intent)
             }
         }
 

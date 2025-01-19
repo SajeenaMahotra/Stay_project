@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentManager
 import com.example.project_stay.R
 import com.example.project_stay.databinding.FragmentHomeBinding
 import com.example.project_stay.adapter.TabAdapter
+import com.example.project_stay.repository.UserRepositoryImpl
+import com.example.project_stay.viewmodel.UserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -17,6 +19,7 @@ class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     val tabTitle = arrayListOf("All", "Popular", "Offers", "Nearby")
+    lateinit var userViewModel: UserViewModel
 
 
 
@@ -29,8 +32,23 @@ class HomeFragment : Fragment() {
         setUpTabLayoutWithViewPager()
         return binding.root
     }
-
     lateinit var adapter: TabAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
+
+        var currentUser = userViewModel.getCurrentUser()
+        currentUser.let {
+            userViewModel.getUserFromDatabase(it?.uid.toString())
+        }
+
+        userViewModel.userData.observe(requireActivity()){
+            binding.fullNameDisplay.text = it?.fullName.toString()
+        }
+    }
 
     private fun setUpTabLayoutWithViewPager() {
 

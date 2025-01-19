@@ -5,18 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.project_stay.R
 import com.example.project_stay.databinding.ActivitySignupBinding
+import com.example.project_stay.model.UserModel
+import com.example.project_stay.repository.UserRepository
+import com.example.project_stay.repository.UserRepositoryImpl
+import com.example.project_stay.viewmodel.UserViewModel
 import com.google.android.material.internal.ViewUtils.showKeyboard
 import java.util.Calendar
 
 class SignupActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignupBinding
     lateinit var date: EditText
+    lateinit var userViewModel: UserViewModel
 
     var gender = arrayOf("Male", "Female", "Other")
 
@@ -25,6 +31,9 @@ class SignupActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val repo =UserRepositoryImpl()
+        userViewModel= UserViewModel(repo)
 
         binding.dateInput.isClickable = true
         binding.dateInput.isFocusable = false
@@ -43,15 +52,70 @@ class SignupActivity : AppCompatActivity() {
         binding.loginText.setOnClickListener {
             val intent = Intent(
                 this@SignupActivity,
-                MainActivity :: class.java
+                LoginActivity :: class.java
             )
             startActivity(intent)
         }
+
+        binding.signupButton.setOnClickListener {
+            var fullname = binding.fullnameInput.text.toString()
+            var email = binding.emailInput.text.toString()
+            var dateOfBirth = binding.dateInput.text.toString()
+            var gender = binding.genderInput.text.toString()
+
+
+            if(fullname.isEmpty() || email.isEmpty() || dateOfBirth.isEmpty() || gender.isEmpty()){
+                Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            var password = binding.passwordInput.text.toString()
+            var confirmpassword = binding.confirmPasswordInput.text.toString()
+            if (password != confirmpassword ){
+                Toast.makeText(this, "Password do not match", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }else{
+                userViewModel.signup(email,password){
+                    success,message,userId->
+                    if (success){
+                         var userModel=UserModel(
+                             userId.toString(),
+                             fullname,email,dateOfBirth,gender
+                         )
+                        addUser(userModel)
+                    }else{
+                        Toast.makeText(
+                            this@SignupActivity,
+                            message,Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            }
+        }
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun addUser(userModel: UserModel) {
+
+        userViewModel.addUserToDatabase(userModel.userId,userModel) { success, message ->
+            if (success) {
+                Toast.makeText(
+                    this@SignupActivity,
+                    message, Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@SignupActivity,
+                    message, Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
