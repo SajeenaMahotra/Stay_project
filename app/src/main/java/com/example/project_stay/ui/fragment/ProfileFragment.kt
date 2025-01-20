@@ -22,6 +22,7 @@ class ProfileFragment : Fragment() {
 
         // Initialize all buttons and components
         val btnPersonalDetails = view.findViewById<LinearLayout>(R.id.btnPersonalDetails)
+
         val btnNotifications = view.findViewById<LinearLayout>(R.id.btnNotifications)
         val switchNotifications = view.findViewById<Switch>(R.id.switchNotifications)
         val btnPrivacyPolicy = view.findViewById<LinearLayout>(R.id.btnPrivacyPolicy)
