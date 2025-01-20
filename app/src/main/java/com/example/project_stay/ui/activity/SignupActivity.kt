@@ -82,6 +82,12 @@ class SignupActivity : AppCompatActivity() {
                              fullname,email,dateOfBirth,gender
                          )
                         addUser(userModel)
+                        binding.fullnameInput.text?.clear()
+                        binding.emailInput.text?.clear()
+                        binding.dateInput.text?.clear()
+                        binding.genderInput.setText("")
+                        binding.passwordInput.text?.clear()
+                        binding.confirmPasswordInput.text?.clear()
                     }else{
                         Toast.makeText(
                             this@SignupActivity,
