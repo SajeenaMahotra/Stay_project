@@ -48,10 +48,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
-<<<<<<< HEAD
     implementation(libs.firebase.auth)
-=======
->>>>>>> ddfc9d350fec609c7d71b5f631495e0d4091c5e6
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
