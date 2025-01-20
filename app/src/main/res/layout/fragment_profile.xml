@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Account"
+            android:fontFamily="@font/montserrat"
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingBottom="16dp" />
@@ -31,7 +32,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -40,11 +41,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Personal Details"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:src="@drawable/ic_arrow_right" />
         </LinearLayout>
 
@@ -57,7 +60,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -66,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Notifications"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <Switch
@@ -83,7 +87,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -92,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Privacy Policy"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
@@ -109,7 +114,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -118,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Terms and Conditions"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
@@ -135,7 +141,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -144,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="About App"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
@@ -161,7 +168,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -170,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Help and Support"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
@@ -187,7 +195,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/button_background"
             android:padding="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -196,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="FAQs"
+                android:fontFamily="@font/montserrat"
                 android:textSize="16sp" />
 
             <ImageView
@@ -209,11 +218,12 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/skip_grey"
-            android:text="Logout"
-            android:textColor="@color/stay_red"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
             android:gravity="left"
+            android:text="Logout"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/stay_red"
 
             android:textSize="16sp" />
 
