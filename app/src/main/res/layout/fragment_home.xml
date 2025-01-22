@@ -14,10 +14,40 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/montserrat"
-        android:text="Hello, "
+        android:text="Hello "
         android:textFontWeight="600"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fullNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="270dp"
+        android:fontFamily="@font/montserrat"
+        android:text="FullName"
+        android:textFontWeight="600"
+        android:textSize="18dp"
+        android:textColor="@color/stay_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/helloText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textComma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text=","
+        android:textFontWeight="600"
+        android:textColor="@color/stay_red"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/fullNameDisplay"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -103,5 +133,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         app:layout_constraintVertical_bias="0.0" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
