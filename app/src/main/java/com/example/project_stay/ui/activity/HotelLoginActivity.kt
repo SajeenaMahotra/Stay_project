@@ -4,42 +4,34 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.inputmethod.InputBinding
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.project_stay.R
-import com.example.project_stay.databinding.ActivityLoginBinding
-import com.example.project_stay.model.UserModel
-import com.example.project_stay.repository.UserRepository
-import com.example.project_stay.repository.UserRepositoryImpl
-import com.example.project_stay.viewmodel.UserViewModel
+import com.example.project_stay.databinding.ActivityHotelDetailsBinding
+import com.example.project_stay.databinding.ActivityHotelLoginBinding
+import com.example.project_stay.model.Hotel
+import com.example.project_stay.repository.HotelRepositoryImpl
+import com.example.project_stay.viewmodel.HotelViewModel
 
-class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
+class HotelLoginActivity : AppCompatActivity() {
+    lateinit var binding: ActivityHotelLoginBinding
+    lateinit var hotelViewModel: HotelViewModel
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding=ActivityLoginBinding.inflate(layoutInflater)
+
+        binding = ActivityHotelLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var repo = UserRepositoryImpl()
-        userViewModel=UserViewModel(repo)
+        var repo = HotelRepositoryImpl()
+        hotelViewModel = HotelViewModel(repo)
 
-        sharedPreferences=getSharedPreferences("hotel", Context.MODE_PRIVATE)
-
-        binding.textCreateOne.setOnClickListener {
-            val intent =Intent(
-                this@LoginActivity,
-                SignupActivity::class.java
-            )
-            startActivity(intent)
-        }
+        sharedPreferences=getSharedPreferences("user", Context.MODE_PRIVATE)
 
         binding.buttonLogin.setOnClickListener {
             val email:String = binding.emailInput.text.toString()
@@ -57,11 +49,12 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("password",password)
                     editor.apply()
                 }else  {
-                    userViewModel.login(email,password){
-                            success,message->
+                    hotelViewModel.login(email,password){
+                            success,message, userId->
                         if(success){
-                            Toast.makeText(this@LoginActivity,message, Toast.LENGTH_LONG).show()
-                            val intent = Intent(this@LoginActivity,NavigationActivity::class.java)
+                            Toast.makeText(this@HotelLoginActivity,message, Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@HotelLoginActivity,HotelDetailsActivity::class.java)
+                            intent.putExtra("USER_ID", userId)
                             startActivity(intent)
                             finish()
                         }else{

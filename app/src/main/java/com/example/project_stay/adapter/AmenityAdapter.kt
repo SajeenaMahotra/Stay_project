@@ -16,7 +16,8 @@ class AmenityAdapter(
     private val amenities: List<Amenity>,
     private val userId: String,
     private val database: DatabaseReference,
-    private val onAmenityClick: (Amenity) -> Unit
+    private val isSelectable: Boolean,
+    private val onAmenityClick: (Amenity) -> Unit,
 ) : RecyclerView.Adapter<AmenityAdapter.AmenityViewHolder>() {
 
     inner class AmenityViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,12 +36,15 @@ class AmenityAdapter(
                 ContextCompat.getDrawable(itemView.context, R.drawable.unselected_amenity)
             }
 
-            // Click to toggle selection
+            if(isSelectable){
+                // Click to toggle selection
             itemView.setOnClickListener {
                 amenity.isSelected = !amenity.isSelected
                 notifyItemChanged(adapterPosition)
                 saveSelectionToFirebase(amenity)
-                onAmenityClick(amenity)
+                onAmenityClick(amenity)}
+                }else{
+                itemView.setOnClickListener(null)
             }
         }
 

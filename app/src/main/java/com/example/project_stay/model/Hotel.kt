@@ -1,8 +1,9 @@
 package com.example.project_stay.model
 
 data class Hotel(
-    val id: String = "",
-    val name: String = "",
-    val location: String = "",
-    val description: String = ""
+    var hotelId: String = "",
+    var name: String = "",
+    var location: String = "",
+    var description: String = "",
+    var rooms: Map<String, RoomModel>? = null
 )
