@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageViewStay"
+            android:id="@+id/stayLogo"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginStart="144dp"
@@ -29,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="240dp"
-            android:text="Login"
             android:fontFamily="@font/montserrat"
-            android:textStyle="bold"
+            android:text="Login"
             android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="31dp"
             android:layout_marginTop="15dp"
-            android:text="Remember me"
             android:fontFamily="@font/montserrat"
+            android:text="Remember me"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textPassword" />
 
@@ -96,46 +96,16 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="31dp"
             android:background="@drawable/custom_button"
-            android:text="Log in"
             android:fontFamily="@font/montserrat"
-            android:textStyle="bold"
+            android:text="Log in"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rememberMe" />
 
         <TextView
-            android:id="@+id/textCreateAccount"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="20dp"
-            android:text="Don't have an account?"
-            android:fontFamily="@font/montserrat"
-            android:textSize="15sp"
-            android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
-
-        <TextView
-            android:id="@+id/textCreateOne"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Create One."
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textCreateAccount"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
-
-        <TextView
-<<<<<<< HEAD
-            android:id="@+id/ForgotPassword"
-=======
             android:id="@+id/forgotPassword"
->>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="146dp"

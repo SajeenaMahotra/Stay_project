@@ -13,7 +13,11 @@
         android:theme="@style/Theme.ProjectStay"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".ui.activity.HotelierChangePasswordActivity"
+=======
+            android:name=".ui.activity.EditRoomActivity"
+>>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +26,11 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".ui.activity.ForgotPasswordActivity"
+=======
+            android:name=".ui.activity.AddRoomActivity"
+>>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +39,11 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".ui.activity.HotelierNavigationActivity"
+=======
+            android:name=".ui.activity.HotelLoginActivity"
+>>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
