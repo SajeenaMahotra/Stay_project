@@ -55,8 +55,12 @@ class HotelierNavigationActivity : AppCompatActivity() {
             insets
         }
     }
-
-
-
-
 }
+
+
+
+
+
+
+
+
