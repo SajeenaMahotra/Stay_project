@@ -13,52 +13,62 @@
         android:theme="@style/Theme.ProjectStay"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-<<<<<<< HEAD
             android:name=".ui.activity.HotelierChangePasswordActivity"
-=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.EditRoomActivity"
->>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
-=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.HelpActivity"
->>>>>>> 33515a026e918701c0d9465537d0df2249fb9600
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
-<<<<<<< HEAD
             android:name=".ui.activity.ForgotPasswordActivity"
-=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.AddRoomActivity"
->>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".ui.activity.HotelierNavigationActivity"
-=======
-            android:name=".ui.activity.HotelLoginActivity"
->>>>>>> fc2c66214a13a7999caa5daf938c44aaa231b64f
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-=======
->>>>>>> 33515a026e918701c0d9465537d0df2249fb9600
+            android:name=".ui.activity.HotelLoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.SelectAmenitiesActivity"
             android:exported="true">
             <intent-filter>
