@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/hotelierHome"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/hotelierBookings"
+        android:icon="@drawable/baseline_checklist_24"
+        android:title="Bookings" />
+    <item
+        android:id="@+id/hotelierMessages"
+        android:icon="@drawable/baseline_message_24"
+        android:title="Chat" />
+    <item
+        android:id="@+id/hotelierProfile"
+        android:icon="@drawable/baseline_person_outline_24"
+        android:title="Profile" />
+</menu>
