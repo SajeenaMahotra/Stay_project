@@ -1,9 +1,12 @@
 package com.example.project_stay.viewmodel
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.project_stay.model.Amenity
 import com.example.project_stay.model.Hotel
 import com.example.project_stay.model.RoomModel
 import com.example.project_stay.repository.HotelRepository
@@ -54,5 +57,42 @@ class HotelViewModel(val repository: HotelRepository): ViewModel() {
             Log.d("ViewModel", "Rooms received: $rooms")
             _roomsLiveData.postValue(rooms)
         }
+    }
+
+    private val _roomUpdateStatus = MutableLiveData<Boolean>()
+    val roomUpdateStatus: LiveData<Boolean> get() = _roomUpdateStatus
+
+    private val _roomDeleteStatus = MutableLiveData<Boolean>()
+    val roomDeleteStatus: LiveData<Boolean> get() = _roomDeleteStatus
+
+    fun updateRoom(hotelId: String, room: RoomModel) {
+        repository.updateRoom(hotelId, room) { success, message ->
+            _roomUpdateStatus.postValue(success)
+        }
+    }
+
+    fun deleteRoom(hotelId: String, roomId: String) {
+        repository.deleteRoom(hotelId, roomId) { success, message ->
+            _roomDeleteStatus.postValue(success)
+        }
+    }
+
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
+        repository.uploadImage(context, imageUri, callback)
+    }
+
+    private val _hotelImageUrl = MutableLiveData<String>()
+    val hotelImageUrl: LiveData<String> = _hotelImageUrl
+
+    fun fetchHotelImage(hotelId: String) {
+        repository.getHotelImageUrl(hotelId) { imageUrl ->
+            _hotelImageUrl.value = imageUrl
+        }
+    }
+
+    fun getHotels(): LiveData<List<Hotel>> = repository.getHotels()
+
+    fun getHotelDetails(hotelId: String): LiveData<Hotel?> {
+        return repository.getHotelDetails(hotelId)
     }
 }

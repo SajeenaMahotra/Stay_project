@@ -1,6 +1,7 @@
 package com.example.project_stay.ui.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,6 +10,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project_stay.R
@@ -17,21 +20,33 @@ import com.example.project_stay.adapter.RoomsAdapter
 import com.example.project_stay.databinding.ActivityHotelDetailsBinding
 import com.example.project_stay.model.Hotel
 import com.example.project_stay.repository.HotelRepositoryImpl
+import com.example.project_stay.utils.ImageUtils
 import com.example.project_stay.viewmodel.HotelViewModel
 import com.google.firebase.database.FirebaseDatabase
+import com.squareup.picasso.Picasso
 
 class HotelDetailsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHotelDetailsBinding
     lateinit var hotelViewModel: HotelViewModel
     lateinit var adapter: RoomsAdapter
-    val dummyHotelId = "dummy_hotel_123"
+    lateinit var imageUtils: ImageUtils
+    var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHotelDetailsBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        imageUtils  = ImageUtils(this)
+
+        imageUtils.registerActivity { url ->
+            url.let { it ->
+                imageUri = it
+                Picasso.get().load(it).into(binding.ppImage)
+            }
+        }
 
         var repo = HotelRepositoryImpl()
         hotelViewModel = HotelViewModel(repo)
@@ -41,6 +56,19 @@ class HotelDetailsActivity : AppCompatActivity() {
 
         hotelViewModel.fetchHotelDetails(userId)
 
+        hotelViewModel.fetchHotelImage(userId)
+
+        // Observe the hotelImageUrl LiveData
+        hotelViewModel.hotelImageUrl.observe(this, Observer { imageUrl ->
+            if (!imageUrl.isNullOrEmpty()) {
+                // Use Picasso to load the image into the ImageView
+                Picasso.get()
+                    .load(imageUrl) // Cloudinary URL
+                    .placeholder(R.drawable.placeholder) // Optional placeholder
+                    .into(binding.ppImage) // Your ImageView ID
+            }
+        })
+
         hotelViewModel.hotelLiveData.observe(this) { hotel ->
             if (hotel != null) {
                 binding.hotelNameInput.setText(hotel.name)
@@ -49,17 +77,12 @@ class HotelDetailsActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnSave.setOnClickListener {
-            val name = binding.hotelNameInput.text.toString().trim()
-            val location = binding.locationInput.text.toString().trim()
-            val description = binding.descriptionInput.text.toString().trim()
+        binding.ppImage.setOnClickListener {
+            imageUtils.launchGallery(this)
+        }
 
-            if (name.isNotEmpty() && location.isNotEmpty() && description.isNotEmpty()) {
-                val hotel = Hotel(userId, name, location, description)
-                hotelViewModel.saveHotelDetails(hotel)
-            } else {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            }
+        binding.btnSave.setOnClickListener {
+            uploadImage()
         }
 
         hotelViewModel.saveStatus.observe(this) { success ->
@@ -75,6 +98,7 @@ class HotelDetailsActivity : AppCompatActivity() {
                 this@HotelDetailsActivity,
                 SelectAmenitiesActivity :: class.java
             )
+            intent.putExtra("HOTEL_ID", userId)
             startActivity(intent)
         }
 
@@ -144,13 +168,42 @@ class HotelDetailsActivity : AppCompatActivity() {
         hotelViewModel.fetchRooms(userId)
 
         // Re-fetch amenities
-        val database = FirebaseDatabase.getInstance().getReference("hotels")
+        val database = FirebaseDatabase.getInstance().getReference("amenities")
         val lol = SelectAmenitiesActivity()
         lol.getSelectedAmenities(userId, database) { selectedAmenities ->
             val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
                 // Handle amenity click if necessary
             }
             binding.recyclerViewAmenities.adapter = adapter
+        }
+    }
+
+    private fun uploadImage() {
+        imageUri?.let { uri ->
+            hotelViewModel.uploadImage(this, uri) { imageUrl ->
+                Log.d("checkpoint", imageUrl.toString())
+                if (imageUrl != null) {
+                    addHotel(imageUrl)
+                } else {
+                    Log.e("Upload Error", "Failed to upload image to Cloudinary")
+                }
+            }
+        }
+    }
+
+    private fun addHotel(imageUrl: String) {
+        val userId = intent.getStringExtra("USER_ID")?: ""
+        val name = binding.hotelNameInput.text.toString().trim()
+        val location = binding.locationInput.text.toString().trim()
+        val description = binding.descriptionInput.text.toString().trim()
+
+        if (name.isNotEmpty() && location.isNotEmpty() && description.isNotEmpty()) {
+            val hotel = Hotel(userId, name, location, description, imageUrl)
+            hotelViewModel.saveHotelDetails(hotel)
+            val intent = Intent(this@HotelDetailsActivity, HotelierNavigationActivity::class.java)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
         }
     }
 }

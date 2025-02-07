@@ -5,5 +5,8 @@ data class Hotel(
     var name: String = "",
     var location: String = "",
     var description: String = "",
+    var imageUrl : String = "",
+    var highestPrice: Double = 0.0,
+    var lowestPrice: Double = 0.0,
     var rooms: Map<String, RoomModel>? = null
 )

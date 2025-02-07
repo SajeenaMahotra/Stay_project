@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.project_stay.R
 import com.example.project_stay.databinding.ActivityEditRoomBinding
+import com.example.project_stay.model.Hotel
 import com.example.project_stay.model.RoomModel
 import com.example.project_stay.repository.HotelRepositoryImpl
 import com.example.project_stay.viewmodel.EditRoomViewModel
@@ -20,7 +21,7 @@ import com.example.project_stay.viewmodel.HotelViewModel
 class EditRoomActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityEditRoomBinding
-    lateinit var viewModel: EditRoomViewModel
+    lateinit var viewModel: HotelViewModel
     private lateinit var roomId: String
     private lateinit var hotelId: String
 
@@ -30,7 +31,7 @@ class EditRoomActivity : AppCompatActivity() {
         binding = ActivityEditRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
         var repo = HotelRepositoryImpl()
-        viewModel = EditRoomViewModel(repo)
+        viewModel = HotelViewModel(repo)
 
         val roomNameEditText = binding.roomNameEditText
         val numberOfRoomsEditText = binding.numberOfRoomsEditText
