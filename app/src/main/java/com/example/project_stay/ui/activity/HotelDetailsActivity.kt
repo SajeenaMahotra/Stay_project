@@ -168,7 +168,7 @@ class HotelDetailsActivity : AppCompatActivity() {
         hotelViewModel.fetchRooms(userId)
 
         // Re-fetch amenities
-        val database = FirebaseDatabase.getInstance().getReference("amenities")
+        val database = FirebaseDatabase.getInstance().getReference("hotels")
         val lol = SelectAmenitiesActivity()
         lol.getSelectedAmenities(userId, database) { selectedAmenities ->
             val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
