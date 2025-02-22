@@ -20,7 +20,6 @@ class HotelAdapter(private val context: Context, private val hotelList: List<Hot
         val hotelImage: ImageView = itemView.findViewById(R.id.hotelImage)
         val hotelName: TextView = itemView.findViewById(R.id.hotelName)
         val location: TextView = itemView.findViewById(R.id.location)
-        val rating: TextView = itemView.findViewById(R.id.rating) // Add rating if applicable
         val price: TextView = itemView.findViewById(R.id.price)
         val cardView: CardView = itemView.findViewById(R.id.cardView)
     }
