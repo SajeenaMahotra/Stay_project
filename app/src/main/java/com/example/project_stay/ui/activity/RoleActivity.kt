@@ -1,38 +1,50 @@
 package com.example.project_stay.ui.activity
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.project_stay.R
-import com.example.project_stay.databinding.ActivitySplashBinding
+import com.example.project_stay.databinding.ActivityRoleBinding
 
-class SplashActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySplashBinding
+class RoleActivity : AppCompatActivity() {
+    lateinit var binding: ActivityRoleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivitySplashBinding.inflate(layoutInflater)
+        binding=ActivityRoleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val videoView = binding.videoView
-
-        val videoPath = "android.resource://${packageName}/raw/stay_splash"
-        val uri = Uri.parse(videoPath)
-        videoView.setVideoURI(uri)
-
-        videoView.setOnCompletionListener {
-            val intent = Intent(this@SplashActivity,
-                OnboardingActivity::class.java)
+        binding.btnGuest.setOnClickListener {
+            val intent=Intent(
+                this@RoleActivity,
+                LoginActivity::class.java
+            )
             startActivity(intent)
-            finish()
         }
-        videoView.start()
+
+        binding.btnAdmin.setOnClickListener {
+            val intent=Intent(
+                this@RoleActivity,
+                HotelLoginActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        binding.arrowBack.setOnClickListener {
+            val intent=Intent(
+                this@RoleActivity,
+                OnboardingActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -30,8 +30,17 @@ class LoginActivity : AppCompatActivity() {
 
         var repo = UserRepositoryImpl()
         userViewModel=UserViewModel(repo)
-
         sharedPreferences=getSharedPreferences("hotel", Context.MODE_PRIVATE)
+
+        loadSavedCredentials()
+
+        binding.imageViewBackArrow.setOnClickListener {
+            val intent=Intent(
+                this@LoginActivity,
+                RoleActivity::class.java
+            )
+            startActivity(intent)
+        }
 
         binding.textCreateOne.setOnClickListener {
             val intent =Intent(
@@ -50,32 +59,25 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            val email:String = binding.emailInput.text.toString()
-            val password :String = binding.passwordInput.text.toString()
+            val email = binding.emailInput.text.toString().trim()
+            val password = binding.passwordInput.text.toString().trim()
 
-            if(email.isEmpty()){
-                binding.emailInput.error="Please enter your email"
-            }else if(password.isEmpty()){
-                binding.passwordInput.error="Please enter the password"
-            }else{
-                if(binding.rememberMe.isChecked){
-                    val editor = sharedPreferences.edit()
+            if (email.isEmpty()) {
+                binding.emailInput.error = "Please enter your email"
+            } else if (password.isEmpty()) {
+                binding.passwordInput.error = "Please enter the password"
+            } else {
+                if (binding.rememberMe.isChecked) {
+                    saveCredentials(email, password)
+                } else {
+                    clearSavedCredentials()
+                }
 
-                    editor.putString("email",email)
-                    editor.putString("password",password)
-                    editor.apply()
-                }else  {
-                    userViewModel.login(email,password){
-                            success,message->
-                        if(success){
-                            Toast.makeText(this@LoginActivity,message, Toast.LENGTH_LONG).show()
-                            val intent = Intent(this@LoginActivity,NavigationActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }else{
-                            Toast.makeText(applicationContext,message, Toast.LENGTH_LONG).show()
-
-                        }
+                userViewModel.login(email, password) { success, message ->
+                    Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
+                    if (success) {
+                        startActivity(Intent(this, NavigationActivity::class.java))
+                        finish() // Finish the login activity to prevent going back
                     }
                 }
             }
@@ -85,6 +87,30 @@ class LoginActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun saveCredentials(email: String, password: String) {
+        sharedPreferences.edit().apply {
+            putString("email", email)
+            putString("password", password)
+            apply()
+        }
+
+    }
+
+    private fun clearSavedCredentials() {
+        sharedPreferences.edit().remove("email").remove("password").apply()
+    }
+
+    private fun loadSavedCredentials() {
+        val email = sharedPreferences.getString("email", null)
+        val password = sharedPreferences.getString("password", null)
+
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+            binding.emailInput.setText(email)
+            binding.passwordInput.setText(password)
+            binding.rememberMe.isChecked = true
         }
     }
 }

@@ -8,5 +8,6 @@ data class Hotel(
     var imageUrl : String = "",
     var highestPrice: Double = 0.0,
     var lowestPrice: Double = 0.0,
-    var rooms: Map<String, RoomModel>? = null
+    var rooms: Map<String, RoomModel>? = null,
+    var isWishlisted: Boolean = false
 )

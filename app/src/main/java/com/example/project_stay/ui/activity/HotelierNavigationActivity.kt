@@ -17,7 +17,7 @@ import com.example.project_stay.ui.fragment.HotelierChatFragment
 import com.example.project_stay.ui.fragment.HotelierHomeFragment
 import com.example.project_stay.ui.fragment.HotelierProfileFragment
 import com.example.project_stay.ui.fragment.WishlistFragment
-import com.example.yourapp.ProfileFragment
+import com.example.project_stay.ui.fragment.ProfileFragment
 
 class HotelierNavigationActivity : AppCompatActivity() {
     lateinit var binding: ActivityHotelierNavigationBinding

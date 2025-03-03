@@ -277,6 +277,68 @@ class HotelRepositoryImpl: HotelRepository {
         return hotelsLiveData
     }
 
+    override fun addToWishList(
+        userId: String,
+        hotelId: String,
+        isWishlisted: Boolean,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val wishlistRef = FirebaseDatabase.getInstance().getReference("wishlists").child(userId)
+        if (isWishlisted) {
+            // Add to wishlist
+            wishlistRef.child(hotelId).setValue(true).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Added to wishlist")
+                } else {
+                    callback(false, it.exception?.message ?: "Error adding to wishlist")
+                }
+            }
+        } else {
+            // Remove from wishlist
+            wishlistRef.child(hotelId).removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Removed from wishlist")
+                } else {
+                    callback(false, it.exception?.message ?: "Error removing from wishlist")
+                }
+            }
+        }
+
+    }
+
+    override fun getWishlistedHotels(
+        userId: String,
+        callback: (List<Hotel>?, Boolean, String) -> Unit
+    ) {
+        val wishlistRef = FirebaseDatabase.getInstance().getReference("wishlists").child(userId)
+        val hotelsRef = FirebaseDatabase.getInstance().getReference("hotels")
+
+        wishlistRef.get().addOnSuccessListener { wishlistSnapshot ->
+            val wishlistedHotels = mutableListOf<Hotel>()
+            val hotelIds = wishlistSnapshot.children.mapNotNull { it.key }
+
+            // Fetch each hotel object from the "hotels" node
+            for (hotelId in hotelIds) {
+                val isWishlisted = wishlistSnapshot.child(hotelId).getValue(Boolean::class.java) ?: false
+                if (isWishlisted) {
+                    hotelsRef.child(hotelId).get().addOnSuccessListener { hotelSnapshot ->
+                        val hotel = hotelSnapshot.getValue(Hotel::class.java)
+                        hotel?.let { wishlistedHotels.add(it) }
+
+                        // Check if all hotels have been fetched
+                        if (wishlistedHotels.size == hotelIds.size) {
+                            callback(wishlistedHotels, true, "Success")
+                        }
+                    }.addOnFailureListener {
+                        callback(null, false, "Failed to fetch hotel details")
+                    }
+                }
+            }
+        }.addOnFailureListener { exception ->
+            callback(null, false, exception.message ?: "Failed to fetch wishlisted hotels")
+        }
+    }
+
     override fun getHotelDetails(hotelId: String): LiveData<Hotel?> {
         val hotelLiveData = MutableLiveData<Hotel?>()
 

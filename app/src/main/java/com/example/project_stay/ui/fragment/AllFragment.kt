@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,10 @@ import com.example.project_stay.R
 import com.example.project_stay.adapter.HotelAdapter
 import com.example.project_stay.databinding.FragmentAllBinding
 import com.example.project_stay.model.Hotel
+import com.example.project_stay.repository.HotelRepository
 import com.example.project_stay.repository.HotelRepositoryImpl
 import com.example.project_stay.viewmodel.HotelViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class AllFragment : Fragment() {
     private lateinit var binding: FragmentAllBinding
@@ -21,6 +24,9 @@ class AllFragment : Fragment() {
     private lateinit var hotelRecyclerView: RecyclerView
     private lateinit var hotelList: ArrayList<Hotel>
     private lateinit var adapter: HotelAdapter
+    private lateinit var repository: HotelRepository
+    private lateinit var userId: String
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_all, container, false)
@@ -29,13 +35,17 @@ class AllFragment : Fragment() {
         hotelRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         hotelList = ArrayList()
-        adapter = HotelAdapter(requireContext(), hotelList)
-        hotelRecyclerView.adapter = adapter
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-        val repository = HotelRepositoryImpl()
+        repository = HotelRepositoryImpl()
         viewModel = HotelViewModel(repository)
 
-        // Observe LiveData
+        auth = FirebaseAuth.getInstance()
+
+        adapter = HotelAdapter(requireContext(), hotelList,userId,repository,viewModel, auth)
+        hotelRecyclerView.adapter = adapter
+
+
         viewModel.getHotels().observe(viewLifecycleOwner, Observer { hotels ->
             hotelList.clear()
             hotelList.addAll(hotels)
@@ -44,4 +54,5 @@ class AllFragment : Fragment() {
 
         return view
     }
+
 }

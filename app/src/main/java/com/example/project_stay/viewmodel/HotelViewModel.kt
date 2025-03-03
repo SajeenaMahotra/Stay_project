@@ -95,4 +95,37 @@ class HotelViewModel(val repository: HotelRepository): ViewModel() {
     fun getHotelDetails(hotelId: String): LiveData<Hotel?> {
         return repository.getHotelDetails(hotelId)
     }
+
+    fun addToWishList(userId: String,hotelId: String, isWishlisted: Boolean, callback: (Boolean, String) -> Unit){
+        repository.addToWishList(userId, hotelId, isWishlisted) { success, message ->
+            if (success) {
+                // Fetch the updated wishlist and update the LiveData
+                getWishlistedHotels(userId) { hotels, success, message ->
+                    if (success) {
+                        _wishlistedHotels.postValue(hotels ?: emptyList())
+                    }
+                }
+            }
+            callback(success, message)
+        }
+    }
+
+    private val _wishlistedHotels = MutableLiveData<List<Hotel>>()
+    val wishlistedHotels: LiveData<List<Hotel>> get() = _wishlistedHotels
+
+    fun getWishlistedHotels(userId: String, callback: (List<Hotel>?, Boolean, String) -> Unit) {
+        repository.getWishlistedHotels(userId) { hotels, success, message ->
+            if (success) {
+                _wishlistedHotels.postValue(hotels ?: emptyList())
+            } else {
+                Log.e("HotelViewModel", "Error fetching wishlisted hotels: $message")
+            }
+            callback(hotels, success, message)
+        }
+    }
+
+
+
+
+
 }

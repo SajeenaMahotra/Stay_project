@@ -1,5 +1,6 @@
 package com.example.project_stay.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -44,14 +45,22 @@ class OnboardingActivity : AppCompatActivity() {
 
         // Setup button actions
         findViewById<Button>(R.id.skipButton).setOnClickListener {
-            finish() // Navigate to the main screen
+            val intent=Intent(
+                this@OnboardingActivity,
+                RoleActivity::class.java
+            )
+            startActivity(intent)
         }
 
         findViewById<Button>(R.id.nextButton).setOnClickListener {
             if (viewPager.currentItem + 1 < adapter.itemCount) {
                 viewPager.currentItem += 1
             } else {
-                finish() // Navigate to the main screen
+                val intent=Intent(
+                    this@OnboardingActivity,
+                    RoleActivity::class.java
+                )
+                startActivity(intent)
             }
         }
     }

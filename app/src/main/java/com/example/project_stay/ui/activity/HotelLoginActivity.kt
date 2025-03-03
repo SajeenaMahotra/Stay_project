@@ -33,6 +33,22 @@ class HotelLoginActivity : AppCompatActivity() {
 
         sharedPreferences=getSharedPreferences("user", Context.MODE_PRIVATE)
 
+        binding.imageViewBack.setOnClickListener {
+            val intent=Intent(
+                this@HotelLoginActivity,
+                RoleActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        binding.forgotPassword.setOnClickListener {
+            val intent = Intent(
+                this@HotelLoginActivity,
+                ForgotPasswordActivity::class.java
+            )
+            startActivity(intent)
+        }
+
         binding.buttonLogin.setOnClickListener {
             val email:String = binding.emailInput.text.toString()
             val password :String = binding.passwordInput.text.toString()
@@ -41,6 +57,8 @@ class HotelLoginActivity : AppCompatActivity() {
                 binding.emailInput.error="Please enter your email"
             }else if(password.isEmpty()){
                 binding.passwordInput.error="Please enter the password"
+            } else if (!isValidHotelEmail(email)) {
+                binding.emailInput.error = "Invalid email"
             }else{
                 if(binding.rememberMe.isChecked){
                     val editor = sharedPreferences.edit()
@@ -71,5 +89,9 @@ class HotelLoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun isValidHotelEmail(email: String): Boolean {
+        return email.startsWith("hotel", ignoreCase = true)
     }
 }

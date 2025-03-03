@@ -1,5 +1,6 @@
-package com.example.yourapp
+package com.example.project_stay.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,68 +11,41 @@ import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.project_stay.R
+import com.example.project_stay.databinding.FragmentProfileBinding
+import com.example.project_stay.ui.activity.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
+    lateinit var binding: FragmentProfileBinding
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        binding=FragmentProfileBinding.inflate(layoutInflater,container,false)
+        auth = FirebaseAuth.getInstance()
 
-        // Initialize all buttons and components
-        val btnPersonalDetails = view.findViewById<LinearLayout>(R.id.btnPersonalDetails)
 
-        val btnNotifications = view.findViewById<LinearLayout>(R.id.btnNotifications)
-        val switchNotifications = view.findViewById<Switch>(R.id.switchNotifications)
-        val btnPrivacyPolicy = view.findViewById<LinearLayout>(R.id.btnPrivacyPolicy)
-        val btnTermsConditions = view.findViewById<LinearLayout>(R.id.btnTermsConditions)
-        val btnAboutApp = view.findViewById<LinearLayout>(R.id.btnAboutApp)
-        val btnHelpSupport = view.findViewById<LinearLayout>(R.id.btnHelpSupport)
-        val btnFAQs = view.findViewById<LinearLayout>(R.id.btnFAQs)
-        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
-        // Set click listeners for each button
-        btnPersonalDetails.setOnClickListener {
-            navigateToDetailsPage("Personal Details")
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnLogout.setOnClickListener {
+            logoutUser()
         }
+    }
 
-        btnNotifications.setOnClickListener {
-            switchNotifications.isChecked = !switchNotifications.isChecked // Toggle the switch
-        }
 
-        switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) "Notifications ON" else "Notifications OFF"
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-
-        btnPrivacyPolicy.setOnClickListener {
-            navigateToDetailsPage("Privacy Policy")
-        }
-
-        btnTermsConditions.setOnClickListener {
-            navigateToDetailsPage("Terms and Conditions")
-        }
-
-        btnAboutApp.setOnClickListener {
-            navigateToDetailsPage("About App")
-        }
-
-        btnHelpSupport.setOnClickListener {
-            navigateToDetailsPage("Help and Support")
-        }
-
-        btnFAQs.setOnClickListener {
-            navigateToDetailsPage("FAQs")
-        }
-
-        btnLogout.setOnClickListener {
-            Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
-            // Handle logout logic here (e.g., clearing user session, navigating to login page)
-        }
-
-        return view
+    private fun logoutUser() {
+        auth.signOut() // Sign out the user
+        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToDetailsPage(pageName: String) {
