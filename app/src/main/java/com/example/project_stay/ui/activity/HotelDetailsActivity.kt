@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project_stay.R
@@ -39,7 +38,7 @@ class HotelDetailsActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        imageUtils  = ImageUtils(this)
+        imageUtils = ImageUtils(this)
 
         imageUtils.registerActivity { url ->
             url.let { it ->
@@ -48,14 +47,13 @@ class HotelDetailsActivity : AppCompatActivity() {
             }
         }
 
-        var repo = HotelRepositoryImpl()
+        val repo = HotelRepositoryImpl()
         hotelViewModel = HotelViewModel(repo)
 
-        val userId = intent.getStringExtra("USER_ID")?: ""
-        Log.d("hotel details", "User ID: ${userId}")
+        val userId = intent.getStringExtra("USER_ID") ?: ""
+        Log.d("hotel details", "User ID: $userId")
 
         hotelViewModel.fetchHotelDetails(userId)
-
         hotelViewModel.fetchHotelImage(userId)
 
         // Observe the hotelImageUrl LiveData
@@ -82,7 +80,14 @@ class HotelDetailsActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            uploadImage()
+            // Check if the image has been changed
+            if (imageUri != null) {
+                // If the image is changed, upload it first
+                uploadImage()
+            } else {
+                // If the image is not changed, save the hotel details directly
+                addHotel(hotelViewModel.hotelImageUrl.value ?: "")
+            }
         }
 
         hotelViewModel.saveStatus.observe(this) { success ->
@@ -96,15 +101,16 @@ class HotelDetailsActivity : AppCompatActivity() {
         binding.btnAmenities.setOnClickListener {
             val intent = Intent(
                 this@HotelDetailsActivity,
-                SelectAmenitiesActivity :: class.java
+                SelectAmenitiesActivity::class.java
             )
             intent.putExtra("HOTEL_ID", userId)
             startActivity(intent)
         }
 
         binding.addRoom.setOnClickListener {
-            val intent = Intent(this@HotelDetailsActivity,
-                AddRoomActivity :: class.java
+            val intent = Intent(
+                this@HotelDetailsActivity,
+                AddRoomActivity::class.java
             )
             intent.putExtra("HOTEL_ID", userId)
             startActivity(intent)
@@ -114,7 +120,7 @@ class HotelDetailsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val hotelId = intent.getStringExtra("HOTEL_ID") ?: userId
-        Log.d("hotel details", "Hotel ID: ${hotelId}")
+        Log.d("hotel details", "Hotel ID: $hotelId")
 
         hotelViewModel.fetchRooms(hotelId)
 
@@ -122,7 +128,7 @@ class HotelDetailsActivity : AppCompatActivity() {
             adapter = RoomsAdapter(rooms) { room ->
                 val intent = Intent(this, EditRoomActivity::class.java).apply {
                     putExtra("HOTEL_ID", hotelId)
-                    Log.d("send hotel details", "Hotel ID: ${hotelId}")
+                    Log.d("send hotel details", "Hotel ID: $hotelId")
                     putExtra("ROOM_ID", room.roomId)
                     putExtra("ROOM_NAME", room.roomName)
                     putExtra("NUMBER_OF_ROOMS", room.numberOfRooms)
@@ -147,7 +153,6 @@ class HotelDetailsActivity : AppCompatActivity() {
             binding.recyclerViewAmenities.adapter = adapter
         }
 
-
         binding.backButton.setOnClickListener {
             finish()
         }
@@ -162,7 +167,7 @@ class HotelDetailsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val userId = intent.getStringExtra("USER_ID")?: ""
+        val userId = intent.getStringExtra("USER_ID") ?: ""
 
         // Re-fetch rooms
         hotelViewModel.fetchRooms(userId)
@@ -183,25 +188,52 @@ class HotelDetailsActivity : AppCompatActivity() {
             hotelViewModel.uploadImage(this, uri) { imageUrl ->
                 Log.d("checkpoint", imageUrl.toString())
                 if (imageUrl != null) {
+                    // Once the image is uploaded, save the hotel details
                     addHotel(imageUrl)
                 } else {
                     Log.e("Upload Error", "Failed to upload image to Cloudinary")
+                    Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     private fun addHotel(imageUrl: String) {
-        val userId = intent.getStringExtra("USER_ID")?: ""
+        val userId = intent.getStringExtra("USER_ID") ?: ""
         val name = binding.hotelNameInput.text.toString().trim()
         val location = binding.locationInput.text.toString().trim()
         val description = binding.descriptionInput.text.toString().trim()
 
         if (name.isNotEmpty() && location.isNotEmpty() && description.isNotEmpty()) {
-            val hotel = Hotel(userId, name, location, description, imageUrl)
-            hotelViewModel.saveHotelDetails(hotel)
-            val intent = Intent(this@HotelDetailsActivity, HotelierNavigationActivity::class.java)
-            startActivity(intent)
+            // Fetch the existing hotel data
+            hotelViewModel.fetchHotelDetails(userId)
+
+            hotelViewModel.hotelLiveData.observe(this) { existingHotel ->
+                if (existingHotel != null) {
+                    // Update only the fields that have been modified
+                    val updatedHotel = existingHotel.copy(
+                        name = name,
+                        location = location,
+                        description = description,
+                        imageUrl = imageUrl,
+                        highestPrice = existingHotel.highestPrice, // Retain existing value
+                        lowestPrice = existingHotel.lowestPrice   // Retain existing value
+                    )
+
+                    // Save the updated hotel data back to the database
+                    hotelViewModel.saveHotelDetails(updatedHotel)
+
+                    val intent = Intent(this@HotelDetailsActivity, HotelierNavigationActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If no existing hotel data is found, create a new hotel
+                    val newHotel = Hotel(userId, name, location, description, imageUrl)
+                    hotelViewModel.saveHotelDetails(newHotel)
+
+                    val intent = Intent(this@HotelDetailsActivity, HotelierNavigationActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         } else {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
         }

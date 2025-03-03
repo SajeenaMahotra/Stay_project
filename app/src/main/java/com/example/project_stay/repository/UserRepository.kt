@@ -19,16 +19,4 @@ interface UserRepository  {
         userId:String,
         callback: (UserModel?,Boolean, String) -> Unit
     )
-
-
-
-
-
-
-
-
-
-
-
-
 }
