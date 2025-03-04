@@ -1,5 +1,6 @@
 package com.example.project_stay.ui.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,10 +52,22 @@ class ProfileFragment : Fragment() {
 
 
     private fun logoutUser() {
+        val sharedPreferences = requireContext().getSharedPreferences("hotel", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        // Clear saved user credentials and uncheck Remember Me
+        editor.remove("email")
+        editor.remove("password")
+        editor.putBoolean("rememberMe", false) // Uncheck Remember Me
+        editor.apply()
+
         auth.signOut() // Sign out the user
+
         Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
+        requireActivity().finish() // Close ProfileFragment and prevent going back
+
     }
 
 }

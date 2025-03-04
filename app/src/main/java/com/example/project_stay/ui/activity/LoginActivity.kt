@@ -67,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
             } else if (password.isEmpty()) {
                 binding.passwordInput.error = "Please enter the password"
             } else if (email.startsWith("hotel")) {
-                // Prevent hotel credentials from being used in user login
                 binding.emailInput.error = "Invalid email"
                 Toast.makeText(this@LoginActivity, "Select the correct user type", Toast.LENGTH_LONG).show()
             } else {
@@ -81,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
                     if (success) {
                         startActivity(Intent(this, NavigationActivity::class.java))
-                        finish() // Finish the login activity to prevent going back
+                        finish()
                     }
                 }
             }
@@ -98,23 +97,31 @@ class LoginActivity : AppCompatActivity() {
         sharedPreferences.edit().apply {
             putString("email", email)
             putString("password", password)
+            putBoolean("rememberMe", true)
             apply()
         }
 
     }
 
     private fun clearSavedCredentials() {
-        sharedPreferences.edit().remove("email").remove("password").apply()
+        sharedPreferences.edit().apply {
+            remove("email")
+            remove("password")
+            putBoolean("rememberMe", false)  // Uncheck Remember Me
+            apply()
+        }
+        binding.rememberMe.isChecked = false
     }
 
     private fun loadSavedCredentials() {
         val email = sharedPreferences.getString("email", null)
         val password = sharedPreferences.getString("password", null)
+        val rememberMeChecked = sharedPreferences.getBoolean("rememberMe", false)
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             binding.emailInput.setText(email)
             binding.passwordInput.setText(password)
-            binding.rememberMe.isChecked = true
+            binding.rememberMe.isChecked = rememberMeChecked
         }
     }
 }

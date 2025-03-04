@@ -27,7 +27,6 @@ class HotelierChangePasswordActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Set up the click listener for the change password button
         binding.btnChangePassword.setOnClickListener {
             changePassword()
         }
@@ -37,8 +36,6 @@ class HotelierChangePasswordActivity : AppCompatActivity() {
                 PersonalDetailsActivity::class.java)
             startActivity(intent)
         }
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -52,7 +49,6 @@ class HotelierChangePasswordActivity : AppCompatActivity() {
         val newPassword = binding.newPasswordInput.text.toString()
         val confirmPassword = binding.confirmPassInput.text.toString()
 
-        // Validate inputs
         if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
@@ -63,7 +59,6 @@ class HotelierChangePasswordActivity : AppCompatActivity() {
             return
         }
 
-        // Show progress dialog
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Updating password...")
         progressDialog.setCancelable(false)
@@ -75,12 +70,11 @@ class HotelierChangePasswordActivity : AppCompatActivity() {
 
         user?.reauthenticate(credential)?.addOnCompleteListener { reauthTask ->
             if (reauthTask.isSuccessful) {
-                // Update the password
                 user.updatePassword(newPassword).addOnCompleteListener { updateTask ->
                     progressDialog.dismiss()
                     if (updateTask.isSuccessful) {
                         Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
-                        finish() // Close the activity
+                        finish()
                     } else {
                         Toast.makeText(this, "Failed to update password: ${updateTask.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
