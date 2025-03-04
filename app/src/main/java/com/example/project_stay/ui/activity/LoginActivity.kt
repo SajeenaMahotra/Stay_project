@@ -66,6 +66,10 @@ class LoginActivity : AppCompatActivity() {
                 binding.emailInput.error = "Please enter your email"
             } else if (password.isEmpty()) {
                 binding.passwordInput.error = "Please enter the password"
+            } else if (email.startsWith("hotel")) {
+                // Prevent hotel credentials from being used in user login
+                binding.emailInput.error = "Invalid email"
+                Toast.makeText(this@LoginActivity, "Select the correct user type", Toast.LENGTH_LONG).show()
             } else {
                 if (binding.rememberMe.isChecked) {
                     saveCredentials(email, password)

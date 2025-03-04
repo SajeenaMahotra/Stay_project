@@ -68,6 +68,12 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
+
+            if (isHotelEmail(email)) {
+                Toast.makeText(this, "The email provided seems invalid", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            
             var password = binding.passwordInput.text.toString()
             var confirmpassword = binding.confirmPasswordInput.text.toString()
             if (password != confirmpassword ){
@@ -106,6 +112,10 @@ class SignupActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun isHotelEmail(email: String): Boolean {
+        return email.startsWith("hotel", ignoreCase = true)
     }
 
     private fun addUser(userModel: UserModel) {

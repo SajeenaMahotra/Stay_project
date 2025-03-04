@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.project_stay.R
 import com.example.project_stay.databinding.FragmentProfileBinding
 import com.example.project_stay.ui.activity.LoginActivity
+import com.example.project_stay.ui.activity.PersonalDetailsActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
@@ -27,8 +28,6 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
 
-
-
         return binding.root
     }
 
@@ -38,6 +37,16 @@ class ProfileFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             logoutUser()
         }
+
+        binding.btnPersonalDetails.setOnClickListener {
+            val intent = Intent(
+                this@ProfileFragment.requireContext(),
+                PersonalDetailsActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+
     }
 
 
@@ -48,11 +57,6 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun navigateToDetailsPage(pageName: String) {
-        Toast.makeText(context, "Navigating to $pageName", Toast.LENGTH_SHORT).show()
-        // Add navigation logic here
-        // For example: FindNavController().navigate(R.id.yourDestinationId)
-    }
 }
 
 
