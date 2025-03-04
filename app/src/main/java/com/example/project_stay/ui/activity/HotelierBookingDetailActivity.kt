@@ -35,8 +35,8 @@ class HotelierBookingDetailActivity : AppCompatActivity() {
             // Set button text based on status
             binding.markAsCompleteButton.text = if (booking.status == "Active") "Mark as Complete" else "Mark as Active"
 
-            // Fetch hotel details
-            fetchHotelDetails(booking.hotelId)
+            // Fetch user details
+            fetchUserDetails(booking.userId)
             // Fetch room details and calculate price breakdown
             fetchRoomDetails(booking.hotelId, booking.roomId, booking.checkInDate, booking.checkOutDate)
 
@@ -47,21 +47,20 @@ class HotelierBookingDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchHotelDetails(hotelId: String) {
-        val hotelRef = FirebaseDatabase.getInstance().getReference("hotels/$hotelId")
-        hotelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun fetchUserDetails(userId: String) {
+        val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val hotelName = snapshot.child("name").getValue(String::class.java)
-                val hotelLocation = snapshot.child("location").getValue(String::class.java)
-                val hotelDescription = snapshot.child("description").getValue(String::class.java)
-
-                binding.hotelNameTextView.text = "Hotel: $hotelName"
-                binding.hotelLocationTextView.text = "Location: $hotelLocation"
-                binding.hotelDescriptionTextView.text = "Description: $hotelDescription"
+                val userName = snapshot.child("fullName").getValue(String::class.java)
+                if (userName != null) {
+                    binding.userNameTextView.text = "Booked by: $userName"
+                } else {
+                    binding.userNameTextView.text = "Booked by: Unknown User"
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@HotelierBookingDetailActivity, "Failed to fetch hotel details: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HotelierBookingDetailActivity, "Failed to fetch user details: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

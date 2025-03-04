@@ -6,28 +6,12 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/hotelNameTextView"
+        android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hotel Name"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/hotelLocationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/hotelDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp" />
+        android:text="Booked by: "
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/roomNameTextView"

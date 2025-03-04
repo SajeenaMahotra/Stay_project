@@ -1,5 +1,6 @@
 package com.example.project_stay.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -208,6 +209,12 @@ class HotelDetailsActivity : AppCompatActivity() {
             // Fetch the existing hotel data
             hotelViewModel.fetchHotelDetails(userId)
 
+            // Mark the profile as complete in SharedPreferences
+            val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isProfileComplete_$userId", true)
+            editor.apply()
+
             hotelViewModel.hotelLiveData.observe(this) { existingHotel ->
                 if (existingHotel != null) {
                     // Update only the fields that have been modified
@@ -217,7 +224,7 @@ class HotelDetailsActivity : AppCompatActivity() {
                         description = description,
                         imageUrl = imageUrl,
                         highestPrice = existingHotel.highestPrice, // Retain existing value
-                        lowestPrice = existingHotel.lowestPrice   // Retain existing value
+                        lowestPrice = existingHotel.lowestPrice,   // Retain existing value
                     )
 
                     // Save the updated hotel data back to the database
