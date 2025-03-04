@@ -1,60 +1,115 @@
 package com.example.project_stay.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.project_stay.R
+import com.example.project_stay.adapter.HotelierBookingAdapter
+import com.example.project_stay.model.BookingModel
+import com.example.project_stay.ui.activity.HotelierBookingDetailActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HotelierBookingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HotelierBookingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var hotelierBookingRecyclerView: RecyclerView
+    private lateinit var hotelierBookingAdapter: HotelierBookingAdapter
+    private val bookings = mutableListOf<BookingModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hotelier_booking, container, false)
+        val view = inflater.inflate(R.layout.fragment_hotelier_booking, container, false)
+        hotelierBookingRecyclerView = view.findViewById(R.id.hotelierBookingRecyclerView)
+        hotelierBookingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        hotelierBookingAdapter = HotelierBookingAdapter(bookings) { booking ->
+            // Navigate to HotelierBookingDetailActivity
+            val intent = Intent(requireContext(), HotelierBookingDetailActivity::class.java).apply {
+                putExtra("booking", booking)
+            }
+            startActivity(intent)
+        }
+        hotelierBookingRecyclerView.adapter = hotelierBookingAdapter
+        fetchBookings()
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HotelierBookingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HotelierBookingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchBookings() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val hotelId = currentUser.uid // Assuming the hotelId is the same as the user ID
+            val bookingsRef = FirebaseDatabase.getInstance().getReference("bookings")
+            bookingsRef.orderByChild("hotelId").equalTo(hotelId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    bookings.clear()
+                    for (bookingSnapshot in snapshot.children) {
+                        val booking = bookingSnapshot.getValue(BookingModel::class.java)
+                        if (booking != null) {
+                            // Fetch hotel name and user name for the booking
+                            fetchHotelName(booking.hotelId) { hotelName ->
+                                booking.hotelName = hotelName
+                                fetchUserName(booking.userId) { userName ->
+                                    booking.userName = userName
+                                    bookings.add(booking)
+                                    hotelierBookingAdapter.notifyDataSetChanged()
+                                }
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(), "Failed to fetch bookings: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+    private fun fetchHotelName(hotelId: String, onSuccess: (String) -> Unit) {
+        val hotelRef = FirebaseDatabase.getInstance().getReference("hotels/$hotelId")
+        hotelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hotelName = snapshot.child("name").getValue(String::class.java)
+                if (hotelName != null) {
+                    onSuccess(hotelName)
                 }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("HotelierBookingFragment", "Failed to fetch hotel name: ${error.message}")
+            }
+        })
+    }
+
+    private fun fetchUserName(userId: String, onSuccess: (String) -> Unit) {
+        val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userName = snapshot.child("fullName").getValue(String::class.java)
+                if (userName != null) {
+                    onSuccess(userName)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("HotelierBookingFragment", "Failed to fetch user name: ${error.message}")
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchBookings() // Refresh the data when the fragment resumes
     }
 }
