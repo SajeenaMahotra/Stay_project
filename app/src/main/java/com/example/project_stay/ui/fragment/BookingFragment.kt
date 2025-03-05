@@ -16,6 +16,10 @@ import com.example.project_stay.model.BookingModel
 import com.example.project_stay.ui.activity.BookingDetailActivity
 import com.example.project_stay.viewmodel.BookingViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class BookingFragment : Fragment() {
 
@@ -48,12 +52,39 @@ class BookingFragment : Fragment() {
             val userId = currentUser.uid
             bookingViewModel.getBookingsByUserId(userId)
             bookingViewModel.bookings.observe(viewLifecycleOwner) { bookings ->
-                bookingAdapter.updateBookings(bookings)
+                // Fetch hotel names for each booking
+                val updatedBookings = mutableListOf<BookingModel>()
+                bookings.forEach { booking ->
+                    fetchHotelName(booking) { hotelName ->
+                        booking.hotelName = hotelName
+                        updatedBookings.add(booking)
+                        // Update adapter when all bookings are processed
+                        if (updatedBookings.size == bookings.size) {
+                            bookingAdapter.updateBookings(updatedBookings)
+                        }
+                    }
+                }
             }
             bookingViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun fetchHotelName(booking: BookingModel, onSuccess: (String) -> Unit) {
+        val hotelRef = FirebaseDatabase.getInstance().getReference("hotels/${booking.hotelId}")
+        hotelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hotelName = snapshot.child("name").getValue(String::class.java)
+                if (hotelName != null) {
+                    onSuccess(hotelName)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Failed to fetch hotel name: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onDestroyView() {
