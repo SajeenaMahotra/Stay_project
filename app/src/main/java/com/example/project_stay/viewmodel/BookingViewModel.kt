@@ -124,6 +124,8 @@ class BookingViewModel : ViewModel() {
         }
     }
 
+    
+
     fun saveBooking(hotelId: String, roomId: String, checkIn: String, checkOut: String) {
         val bookingId = UUID.randomUUID().toString()
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
