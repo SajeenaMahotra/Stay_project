@@ -2,62 +2,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- RelativeLayout for back button and title -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/circle_background"
+            android:contentDescription="Back"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <!-- Book Details Title -->
+        <TextView
+            android:id="@+id/bookDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat"
+            android:paddingTop="10dp"
+            android:text="Book Details"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- User Information -->
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="Booked by: "
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/roomNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="Room"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/checkInDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="Check-in"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/checkOutDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Check-out"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/totalPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="Total Price"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Status"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/markAsCompleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mark as Complete"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Mark as Complete" />
 
 </LinearLayout>

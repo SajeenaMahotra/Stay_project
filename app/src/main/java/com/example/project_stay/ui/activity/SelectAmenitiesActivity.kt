@@ -11,7 +11,6 @@ import com.example.project_stay.R
 import com.example.project_stay.adapter.AmenityAdapter
 import com.example.project_stay.databinding.ActivitySelectAmenitiesBinding
 import com.example.project_stay.model.Amenity
-//import com.example.project_stay.repository.AmenityRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -117,7 +116,6 @@ class SelectAmenitiesActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("AmenityRepository", "Failed to load amenities: ${error.message}")
             }
         })
     }

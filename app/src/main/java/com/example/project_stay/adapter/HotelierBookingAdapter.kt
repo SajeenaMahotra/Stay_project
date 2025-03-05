@@ -21,7 +21,7 @@ class HotelierBookingAdapter(
 
         fun bind(booking: BookingModel) {
             // Set booking details to views
-            userNameTextView.text = "User: ${booking.userName}"
+            userNameTextView.text = "${booking.userName}"
             checkInDateTextView.text = "Check-in: ${booking.checkInDate}"
             checkOutDateTextView.text = "Check-out: ${booking.checkOutDate}"
             statusTextView.text = "Status: ${booking.status}"

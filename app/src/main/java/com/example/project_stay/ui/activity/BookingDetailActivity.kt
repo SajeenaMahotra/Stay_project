@@ -30,7 +30,10 @@ class BookingDetailActivity : AppCompatActivity() {
             bookingViewModel.hotel.observe(this) { hotel ->
                 binding.hotelNameTextView.text = "Hotel: ${hotel.name}"
                 binding.hotelLocationTextView.text = "Location: ${hotel.location}"
-                binding.hotelDescriptionTextView.text = "Description: ${hotel.description}"
+            }
+
+            binding.backButton.setOnClickListener {
+                finish()
             }
 
             // Fetch room details and calculate price breakdown

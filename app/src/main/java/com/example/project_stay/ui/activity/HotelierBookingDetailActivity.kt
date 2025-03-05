@@ -45,6 +45,10 @@ class HotelierBookingDetailActivity : AppCompatActivity() {
                 binding.totalPriceTextView.text = "Total Price: $totalPrice"
             }
 
+            binding.backButton.setOnClickListener {
+                finish()
+            }
+
             // Mark as Complete/Active button
             binding.markAsCompleteButton.setOnClickListener {
                 val newStatus = if (booking.status == "Active") "Completed" else "Active"
