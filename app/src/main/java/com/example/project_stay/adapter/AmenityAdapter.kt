@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project_stay.R
 import com.example.project_stay.model.Amenity
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class AmenityAdapter(
     private val amenities: List<Amenity>,
@@ -49,7 +50,8 @@ class AmenityAdapter(
         }
 
         private fun saveSelectionToFirebase(amenity: Amenity) {
-            val amenityRef = database.child(userId).child("amenities").child(amenity.id.toString())
+            val ameniti: DatabaseReference = FirebaseDatabase.getInstance().getReference("amenities")
+            val amenityRef = ameniti.child(userId).child("amenities").child(amenity.id.toString())
             amenityRef.setValue(amenity.isSelected)
         }
     }

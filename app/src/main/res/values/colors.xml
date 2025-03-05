@@ -5,5 +5,8 @@
     <color name="stay_red">#D22B2B</color>
     <color name="gray">#808080</color>
     <color name="skip_grey">#BABABA</color>
+    <color name="light_grey">#D3D3D3</color>
+    <color name="selected_room_color">#000000</color> <!-- Gold color for selected room -->
+    <color name="default_room_color">#FFFFFF</color> <!-- White color for default room -->
 
 </resources>

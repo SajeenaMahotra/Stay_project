@@ -149,7 +149,7 @@ class HotelRepositoryImpl: HotelRepository {
 
     override fun updateRoom(hotelId: String, room: RoomModel, callback: (Boolean, String) -> Unit) {
         if (room.roomId.isNotEmpty()) {
-            val roomRef = rooms.child(hotelId).child(room.roomId) // Ensure correct room path
+            val roomRef = rooms.child(hotelId).child(room.roomId)
 
             val roomUpdates = mapOf(
                 "roomName" to room.roomName,
@@ -162,7 +162,38 @@ class HotelRepositoryImpl: HotelRepository {
             roomRef.updateChildren(roomUpdates)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        callback(true, "Room updated successfully")
+                        // After updating the room, fetch all rooms to recalculate the price range
+                        rooms.child(hotelId).addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                var minPrice: Double? = null
+                                var maxPrice: Double? = null
+
+                                for (roomSnapshot in snapshot.children) {
+                                    val price = roomSnapshot.child("pricePerNight").getValue(Double::class.java)
+                                    if (price != null) {
+                                        minPrice = if (minPrice == null || price < minPrice) price else minPrice
+                                        maxPrice = if (maxPrice == null || price > maxPrice) price else maxPrice
+                                    }
+                                }
+
+                                // Update the hotel price range
+                                val hotelUpdates = HashMap<String, Any>()
+                                minPrice?.let { hotelUpdates["lowestPrice"] = it }
+                                maxPrice?.let { hotelUpdates["highestPrice"] = it }
+
+                                database.child(hotelId).updateChildren(hotelUpdates)
+                                    .addOnCompleteListener {
+                                        callback(true, "Room updated and hotel price range updated successfully")
+                                    }
+                                    .addOnFailureListener {
+                                        callback(false, "Room updated but failed to update hotel price range")
+                                    }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                callback(false, "Room updated but failed to fetch hotel price range")
+                            }
+                        })
                     } else {
                         callback(false, "Failed to update room")
                     }

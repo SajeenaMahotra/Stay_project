@@ -51,7 +51,7 @@
 
         <TextView
             android:id="@+id/location"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:drawableStart="@drawable/outline_location_on_24"
@@ -61,23 +61,8 @@
             android:text="Location"
             android:textColor="@android:color/black"
             android:textSize="14sp"
+            android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hotelName" />
-
-        <TextView
-            android:id="@+id/rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:drawableStart="@drawable/baseline_star_border_24"
-            android:drawablePadding="4dp"
-            android:fontFamily="@font/montserrat"
-            android:gravity="center"
-            android:text="Rating"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/location"
             app:layout_constraintTop_toBottomOf="@+id/hotelName" />
 
         <TextView

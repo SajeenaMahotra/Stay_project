@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.activity.SearchActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -55,6 +59,8 @@
         android:background="@drawable/search_bar_background"
         android:iconifiedByDefault="false"
         android:queryHint="Search here"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
@@ -62,11 +68,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/filter_section"
         android:layout_width="350dp"
-        android:layout_height="500dp"
+        android:layout_height="300dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchHotel">
@@ -84,6 +90,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout6"
             android:layout_width="348dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -91,110 +98,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filterText">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
+                android:id="@+id/locationFilter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:completionThreshold="1"
                 android:fontFamily="@font/montserrat"
-                android:hint="City" />
+                android:hint=" Location" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/checkIn"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/checkinDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_calendar_today_24"
-                android:drawablePadding="10dp"
-                android:drawableTint="@color/gray"
-                android:fontFamily="@font/montserrat"
-                android:hint="Check-in" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/checkOut"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/checkoutDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_calendar_today_24"
-                android:drawablePadding="10dp"
-                android:drawableTint="@color/gray"
-                android:fontFamily="@font/montserrat"
-                android:hint="Check-out" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/roomsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Rooms"
-            android:textFontWeight="500"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkIn" />
-
-        <EditText
-            android:id="@+id/roomsInput"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="117dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/text_input_background"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintStart_toEndOf="@+id/roomsText"
-            app:layout_constraintTop_toBottomOf="@+id/checkOut" />
-
-        <TextView
-            android:id="@+id/guestsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Guests"
-            android:textFontWeight="500"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/roomsText" />
-
-        <EditText
-            android:id="@+id/guestsInput"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="117dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/text_input_background"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintStart_toEndOf="@+id/guestsText"
-            app:layout_constraintTop_toBottomOf="@+id/roomsInput" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat"
             android:text="Price Range"
             android:textFontWeight="600"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guestsText" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
         <EditText
             android:id="@+id/minPrice"
@@ -202,13 +125,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/text_input_background"
             android:drawableLeft="@drawable/baseline_attach_money_24"
             android:drawableTint="@color/gray"
-            android:background="@drawable/text_input_background"
             android:ems="10"
-            android:inputType="numberSigned"
-            android:hint="Min"
             android:fontFamily="@font/montserrat"
+            android:hint="Min"
+            android:inputType="numberSigned"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -217,30 +140,30 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="58dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/text_input_background"
             android:drawableLeft="@drawable/baseline_attach_money_24"
             android:drawableTint="@color/gray"
-            android:background="@drawable/text_input_background"
             android:ems="10"
-            android:inputType="numberSigned"
-            android:hint="Max"
             android:fontFamily="@font/montserrat"
+            android:hint="Max"
+            android:inputType="numberSigned"
             app:layout_constraintStart_toEndOf="@+id/toText"
-            app:layout_constraintTop_toBottomOf="@+id/guestsInput" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/toText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/montserrat"
             android:text="To"
             android:textSize="24dp"
             app:layout_constraintEnd_toStartOf="@+id/maxPrice"
             app:layout_constraintStart_toEndOf="@+id/minPrice"
-            app:layout_constraintTop_toBottomOf="@+id/guestsInput" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/clearButton"
@@ -271,5 +194,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter_section" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

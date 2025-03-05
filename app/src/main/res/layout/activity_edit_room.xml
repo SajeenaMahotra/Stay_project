@@ -138,14 +138,15 @@
         app:layout_constraintStart_toEndOf="@+id/guestText"
         app:layout_constraintTop_toBottomOf="@+id/numberOfRoomsEditText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="48dp"
         android:text="Delete"
-        android:textColor="@android:color/holo_red_dark"
+        android:background="@drawable/custom_button"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 

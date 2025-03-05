@@ -11,7 +11,6 @@ import com.example.project_stay.R
 import com.example.project_stay.adapter.AmenityAdapter
 import com.example.project_stay.databinding.ActivitySelectAmenitiesBinding
 import com.example.project_stay.model.Amenity
-//import com.example.project_stay.repository.AmenityRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -20,6 +19,7 @@ class SelectAmenitiesActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AmenityAdapter
     private lateinit var database: DatabaseReference
+    val ameniti: DatabaseReference = FirebaseDatabase.getInstance().getReference("amenities")
 
     val amenities = listOf(
         Amenity(1, "Pool", R.drawable.baseline_pool_24),
@@ -83,7 +83,7 @@ class SelectAmenitiesActivity : AppCompatActivity() {
     }
 
     private fun loadSelectedAmenities() {
-        database.child(userId).child("amenities").addListenerForSingleValueEvent(object : ValueEventListener {
+        ameniti.child(userId).child("amenities").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach { child ->
                     val amenityId = child.key?.toIntOrNull()
@@ -102,7 +102,7 @@ class SelectAmenitiesActivity : AppCompatActivity() {
     fun getSelectedAmenities(userId: String, database: DatabaseReference, onComplete: (List<Amenity>) -> Unit) {
         val selectedAmenities = mutableListOf<Amenity>()
 
-        database.child(userId).child("amenities").addListenerForSingleValueEvent(object : ValueEventListener {
+        ameniti.child(userId).child("amenities").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach { child ->
                     val amenityId = child.key?.toIntOrNull()
@@ -116,7 +116,6 @@ class SelectAmenitiesActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("AmenityRepository", "Failed to load amenities: ${error.message}")
             }
         })
     }

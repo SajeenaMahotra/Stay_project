@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:contentDescription="Back"
+            android:background="@drawable/circle_background" />
+
+        <TextView
+            android:id="@+id/bookDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Details"
+            android:fontFamily="@font/montserrat"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/hotelNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hotel Name"
+        android:paddingTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/hotelLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:fontFamily="@font/montserrat"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/roomNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room"
+        android:fontFamily="@font/montserrat"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/checkInDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check-in"
+        android:fontFamily="@font/montserrat"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/checkOutDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check-out"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/totalPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Price"
+        android:fontFamily="@font/montserrat"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

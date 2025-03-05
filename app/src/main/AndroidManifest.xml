@@ -19,10 +19,50 @@
         tools:replace="android:fullBackupContent"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".ui.activity.PersonalDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.RoleActivity"
+=======
+            android:name=".ui.activity.HotelierBookingDetailActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.BookingDetailActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.ConfirmBookingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.BookingConfirmationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.BookingDetailsActivity"
+>>>>>>> 3674f7f4449215b33efd8fe8b95bb2bd3a37ea5e
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
 package com.example.project_stay.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.project_stay.R
 import com.example.project_stay.databinding.FragmentHomeBinding
 import com.example.project_stay.adapter.TabAdapter
 import com.example.project_stay.repository.UserRepositoryImpl
+import com.example.project_stay.ui.activity.SearchActivity
 import com.example.project_stay.viewmodel.UserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -47,6 +49,11 @@ class HomeFragment : Fragment() {
 
         userViewModel.userData.observe(requireActivity()){
             binding.fullNameDisplay.text = it?.fullName.toString()
+        }
+
+        binding.searchButton.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
         }
     }
 

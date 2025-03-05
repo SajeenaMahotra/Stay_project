@@ -15,7 +15,6 @@ import com.example.project_stay.databinding.ActivityEditRoomBinding
 import com.example.project_stay.model.Hotel
 import com.example.project_stay.model.RoomModel
 import com.example.project_stay.repository.HotelRepositoryImpl
-import com.example.project_stay.viewmodel.EditRoomViewModel
 import com.example.project_stay.viewmodel.HotelViewModel
 
 class EditRoomActivity : AppCompatActivity() {
