@@ -148,8 +148,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rememberMe"
             app:layout_constraintTop_toBottomOf="@+id/textPassword" />
-
-<<<<<<< HEAD
         <ImageView
             android:id="@+id/imageViewBackArrow"
             android:layout_width="wrap_content"
@@ -159,9 +157,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
-=======
->>>>>>> b3186c9a67b4e46449051bee6a051ed17cca99da
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

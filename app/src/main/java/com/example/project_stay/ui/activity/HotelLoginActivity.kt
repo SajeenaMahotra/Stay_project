@@ -54,14 +54,18 @@ class HotelLoginActivity : AppCompatActivity() {
             val email: String = binding.emailInput.text.toString()
             val password: String = binding.passwordInput.text.toString()
 
-
             if(email.isEmpty()){
                 binding.emailInput.error="Please enter your email"
             }else if(password.isEmpty()){
                 binding.passwordInput.error="Please enter the password"
             } else if (!isValidHotelEmail(email)) {
                 binding.emailInput.error = "Invalid email"
-                Toast.makeText(this@HotelLoginActivity, "Select the correct user type", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@HotelLoginActivity,
+                    "Select the correct user type",
+                    Toast.LENGTH_LONG
+                ).show()
+            }else{
 
 
                 hotelViewModel.login(email, password) { success, message, userId ->
