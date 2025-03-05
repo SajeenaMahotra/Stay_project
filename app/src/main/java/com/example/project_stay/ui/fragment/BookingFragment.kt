@@ -7,23 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_stay.R
 import com.example.project_stay.adapter.BookingAdapter
 import com.example.project_stay.model.BookingModel
 import com.example.project_stay.ui.activity.BookingDetailActivity
+import com.example.project_stay.viewmodel.BookingViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class BookingFragment : Fragment() {
 
     private lateinit var bookingRecyclerView: RecyclerView
     private lateinit var bookingAdapter: BookingAdapter
-    private val bookings = mutableListOf<BookingModel>()
+    private val bookingViewModel: BookingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +30,7 @@ class BookingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_booking, container, false)
         bookingRecyclerView = view.findViewById(R.id.bookingRecyclerView)
         bookingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        bookingAdapter = BookingAdapter(bookings) { booking ->
+        bookingAdapter = BookingAdapter(mutableListOf()) { booking ->
             // Navigate to BookingDetailActivity
             val intent = Intent(requireContext(), BookingDetailActivity::class.java).apply {
                 putExtra("booking", booking)
@@ -48,41 +46,19 @@ class BookingFragment : Fragment() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
             val userId = currentUser.uid
-            val bookingsRef = FirebaseDatabase.getInstance().getReference("bookings")
-            bookingsRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    bookings.clear()
-                    for (bookingSnapshot in snapshot.children) {
-                        val booking = bookingSnapshot.getValue(BookingModel::class.java)
-                        if (booking != null) {
-                            // Fetch hotel name for the booking
-                            fetchHotelName(booking)
-                        }
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(requireContext(), "Failed to fetch bookings: ${error.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
+            bookingViewModel.getBookingsByUserId(userId)
+            bookingViewModel.bookings.observe(viewLifecycleOwner) { bookings ->
+                bookingAdapter.updateBookings(bookings)
+            }
+            bookingViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun fetchHotelName(booking: BookingModel) {
-        val hotelRef = FirebaseDatabase.getInstance().getReference("hotels/${booking.hotelId}")
-        hotelRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val hotelName = snapshot.child("name").getValue(String::class.java)
-                if (hotelName != null) {
-                    booking.hotelName = hotelName
-                    bookings.add(booking)
-                    bookingAdapter.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(), "Failed to fetch hotel name: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bookingViewModel.bookings.removeObservers(viewLifecycleOwner)
+        bookingViewModel.error.removeObservers(viewLifecycleOwner)
     }
 }

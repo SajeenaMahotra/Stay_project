@@ -9,7 +9,7 @@ import com.example.project_stay.R
 import com.example.project_stay.model.BookingModel
 
 class HotelierBookingAdapter(
-    private val bookings: List<BookingModel>,
+    private var bookings: List<BookingModel>, // Make the list mutable
     private val onItemClick: (BookingModel) -> Unit
 ) : RecyclerView.Adapter<HotelierBookingAdapter.BookingViewHolder>() {
 
@@ -43,4 +43,10 @@ class HotelierBookingAdapter(
     }
 
     override fun getItemCount(): Int = bookings.size
+
+    // Add this method to update the bookings list
+    fun updateBookings(newBookings: List<BookingModel>) {
+        bookings = newBookings
+        notifyDataSetChanged() // Notify the adapter that the data has changed
+    }
 }

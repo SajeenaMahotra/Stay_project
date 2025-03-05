@@ -9,7 +9,7 @@ import com.example.project_stay.R
 import com.example.project_stay.model.BookingModel
 
 class BookingAdapter(
-    private val bookings: List<BookingModel>,
+    private var bookings: List<BookingModel>,
     private val onItemClick: (BookingModel) -> Unit
 ) : RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
 
@@ -25,8 +25,7 @@ class BookingAdapter(
             checkOutDateTextView.text = "Check-out: ${booking.checkOutDate}"
             statusTextView.text = "Status: ${booking.status}"
 
-            // Fetch hotel name from Firebase (you can add this logic here or in the fragment)
-            // For now, we'll just display the hotel ID
+            // Display the hotel name
             hotelNameTextView.text = "Hotel Name: ${booking.hotelName}"
 
             // Set click listener
@@ -47,4 +46,10 @@ class BookingAdapter(
     }
 
     override fun getItemCount(): Int = bookings.size
+
+    // Add this method to update the bookings list
+    fun updateBookings(newBookings: List<BookingModel>) {
+        bookings = newBookings
+        notifyDataSetChanged()
+    }
 }

@@ -144,15 +144,15 @@ class HotelDetailsActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance().getReference("hotels")
         val lol = SelectAmenitiesActivity()
         // Fetch selected amenities
-        lol.getSelectedAmenities(userId, database) { selectedAmenities ->
-            val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
-                // Handle amenity click if necessary
-            }
-
-            // Set the adapter to the RecyclerView
-            binding.recyclerViewAmenities.layoutManager = GridLayoutManager(this, 4)
-            binding.recyclerViewAmenities.adapter = adapter
-        }
+//        lol.getSelectedAmenities(userId, database) { selectedAmenities ->
+//            val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
+//                // Handle amenity click if necessary
+//            }
+//
+//            // Set the adapter to the RecyclerView
+//            binding.recyclerViewAmenities.layoutManager = GridLayoutManager(this, 4)
+//            binding.recyclerViewAmenities.adapter = adapter
+//        }
 
         binding.backButton.setOnClickListener {
             finish()
@@ -176,12 +176,12 @@ class HotelDetailsActivity : AppCompatActivity() {
         // Re-fetch amenities
         val database = FirebaseDatabase.getInstance().getReference("hotels")
         val lol = SelectAmenitiesActivity()
-        lol.getSelectedAmenities(userId, database) { selectedAmenities ->
-            val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
-                // Handle amenity click if necessary
-            }
-            binding.recyclerViewAmenities.adapter = adapter
-        }
+//        lol.getSelectedAmenities(userId, database) { selectedAmenities ->
+//            val adapter = AmenityAdapter(selectedAmenities, userId, database, false) { amenity ->
+//                // Handle amenity click if necessary
+//            }
+//            binding.recyclerViewAmenities.adapter = adapter
+//        }
     }
 
     private fun uploadImage() {
