@@ -7,3 +7,4 @@ data class UserModel(
     var dateOfBirth: String ="",
     var gender: String="",
 )
+

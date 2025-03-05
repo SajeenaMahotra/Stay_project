@@ -27,9 +27,6 @@ class PersonalDetailsActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     private var userId: String = ""
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -100,8 +97,11 @@ class PersonalDetailsActivity : AppCompatActivity() {
         }
 
         binding.imageBackarr.setOnClickListener {
-            finish()
+            val intent = Intent(this@PersonalDetailsActivity, NavigationActivity::class.java)
+            intent.putExtra("FRAGMENT_TO_LOAD", "ProfileFragment") // Pass data to load ProfileFragment
+            startActivity(intent)
         }
+
 
         binding.changePasswordbtn.setOnClickListener {
             val intent=Intent(this@PersonalDetailsActivity,

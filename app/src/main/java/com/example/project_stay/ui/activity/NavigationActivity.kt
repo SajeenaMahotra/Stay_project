@@ -27,13 +27,21 @@ class NavigationActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding =ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(HomeFragment())
+
+        // Check if an intent extra is passed to load a specific fragment
+        val fragmentToLoad = intent.getStringExtra("FRAGMENT_TO_LOAD")
+        if (fragmentToLoad == "ProfileFragment") {
+            replaceFragment(ProfileFragment())
+        } else {
+            replaceFragment(HomeFragment())
+        }
         binding.bottomNavbar.setOnItemSelectedListener { menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())

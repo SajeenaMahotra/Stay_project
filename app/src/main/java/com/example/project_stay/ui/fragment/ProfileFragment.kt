@@ -50,7 +50,6 @@ class ProfileFragment : Fragment() {
 
     }
 
-
     private fun logoutUser() {
         val sharedPreferences = requireContext().getSharedPreferences("hotel", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()

@@ -29,8 +29,6 @@ class WishlistFragment : Fragment() {
     private var userId: String? = null
     private lateinit var auth: FirebaseAuth
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
