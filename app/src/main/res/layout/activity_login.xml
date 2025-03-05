@@ -104,6 +104,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rememberMe" />
 
+
+
         <TextView
             android:id="@+id/textCreateAccount"
             android:layout_width="180dp"
@@ -146,6 +148,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rememberMe"
             app:layout_constraintTop_toBottomOf="@+id/textPassword" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

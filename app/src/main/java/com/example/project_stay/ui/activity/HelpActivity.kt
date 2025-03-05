@@ -14,25 +14,21 @@ class HelpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_help)
-
         // Set up window insets for edge-to-edge UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         // Spinner setup
         val spinner: Spinner = findViewById(R.id.spinner2)
         val options = listOf("Refund", "Payment issue", "Account help", "General inquiry")
-
         // Create an ArrayAdapter using the options list and a default spinner layout
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
             options
         )
-
         // Set the adapter to the spinner
         spinner.adapter = adapter
     }

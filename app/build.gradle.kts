@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,9 +48,18 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.junit.ktx)
+
+    // Unit Testing
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+
+    // Instrumented Testing
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-
+    androidTestImplementation(libs.espresso.core) // Ensure this points to the correct version in your libs
+    androidTestImplementation(libs.espresso.intents) // Ensure this points to the correct version in your libs
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules) // Required for running instrumented tests
+    androidTestImplementation(libs.mockito.android) // Mockito for Android Tests
 }
+

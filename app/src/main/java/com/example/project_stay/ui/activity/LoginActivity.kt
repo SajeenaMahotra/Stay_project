@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputBinding
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -80,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
