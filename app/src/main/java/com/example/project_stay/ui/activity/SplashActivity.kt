@@ -44,7 +44,6 @@ class SplashActivity : AppCompatActivity() {
                     sharedPreferences.edit().putBoolean("firstLaunch", false).apply()
                     OnboardingActivity::class.java
                 }
-
                 // Not first launch, user must select role
                 else -> RoleActivity::class.java
             }

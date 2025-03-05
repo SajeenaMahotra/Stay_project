@@ -2,6 +2,7 @@ package com.example.project_stay.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,11 +85,7 @@ class HotelAdapter(private val context: Context, private val hotelList: MutableL
                     hotel.isWishlisted = newStatus
                     notifyItemChanged(position)
                     Toast.makeText(context, if (newStatus) "Added to Wishlist" else "Removed from Wishlist", Toast.LENGTH_SHORT).show()
-//                    if (!newStatus) {
-//                        hotelList.removeAt(position)
-//                        notifyItemRemoved(position)
-//                        notifyItemRangeChanged(position, hotelList.size)
-//                    }
+
                 } else {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
@@ -110,8 +107,8 @@ class HotelAdapter(private val context: Context, private val hotelList: MutableL
     }
 
     fun updateData(newList: List<Hotel>) {
-        hotelList.clear()
         hotelList.addAll(newList)
         notifyDataSetChanged()
+        Log.d("HotelAdapter", "Data updated with ${newList.size} hotels")
     }
 }

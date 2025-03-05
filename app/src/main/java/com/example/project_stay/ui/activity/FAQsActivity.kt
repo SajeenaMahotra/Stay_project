@@ -10,8 +10,10 @@ import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.project_stay.databinding.ActivityFaqsBinding
 
 class FAQsActivity : AppCompatActivity() {
+    lateinit var binding:ActivityFaqsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

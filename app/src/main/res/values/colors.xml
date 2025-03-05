@@ -8,5 +8,8 @@
     <color name="light_grey">#D3D3D3</color>
     <color name="selected_room_color">#000000</color> <!-- Gold color for selected room -->
     <color name="default_room_color">#FFFFFF</color> <!-- White color for default room -->
+    <color name="teal_700">#008080</color>
+
+
 
 </resources>

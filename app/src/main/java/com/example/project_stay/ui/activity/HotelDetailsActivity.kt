@@ -154,7 +154,7 @@ class HotelDetailsActivity : AppCompatActivity() {
             binding.recyclerViewAmenities.adapter = adapter
         }
 
-        binding.backButton.setOnClickListener {
+        binding.backButtonarrow.setOnClickListener {
             finish()
         }
 

@@ -13,8 +13,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.project_stay.R
 import com.example.project_stay.databinding.FragmentProfileBinding
+import com.example.project_stay.ui.activity.AboutAppActivity
+import com.example.project_stay.ui.activity.FAQsActivity
+import com.example.project_stay.ui.activity.HelpActivity
 import com.example.project_stay.ui.activity.LoginActivity
 import com.example.project_stay.ui.activity.PersonalDetailsActivity
+import com.example.project_stay.ui.activity.PrivacyActivity
+import com.example.project_stay.ui.activity.TermsActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
@@ -47,7 +52,40 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.btnFAQs.setOnClickListener{
+            val intent=Intent(
+                this@ProfileFragment.requireContext(),
+                FAQsActivity::class.java)
+            startActivity(intent)
+        }
 
+        binding.btnTermsConditions.setOnClickListener{
+            val intent=Intent(
+                this@ProfileFragment.requireContext(),
+                TermsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnAboutApp.setOnClickListener{
+            val intent=Intent(
+                this@ProfileFragment.requireContext(),
+                AboutAppActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnHelpSupport.setOnClickListener{
+            val intent=Intent(
+                this@ProfileFragment.requireContext(),
+                HelpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnPrivacyPolicy.setOnClickListener{
+            val intent=Intent(
+                this@ProfileFragment.requireContext(),
+                PrivacyActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun logoutUser() {

@@ -23,8 +23,6 @@ class HomeFragment : Fragment() {
     val tabTitle = arrayListOf("All", "Popular", "Offers", "Nearby")
     lateinit var userViewModel: UserViewModel
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,31 +1,25 @@
 package com.example.project_stay.ui.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.project_stay.databinding.FragmentHotelierProfileBinding
 import com.example.project_stay.ui.activity.HotelDetailsActivity
+import com.example.project_stay.ui.activity.HotelLoginActivity
+import com.example.project_stay.ui.activity.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 
-<<<<<<< HEAD
 
-class HotelierProfileFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-=======
 class HotelierProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentHotelierProfileBinding
     private lateinit var auth: FirebaseAuth
->>>>>>> 3674f7f4449215b33efd8fe8b95bb2bd3a37ea5e
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +30,7 @@ class HotelierProfileFragment : Fragment() {
         return binding.root
     }
 
-<<<<<<< HEAD
 
-=======
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,6 +48,20 @@ class HotelierProfileFragment : Fragment() {
             }
             startActivity(intent)
         }
+
+        binding.btnHotelLogout.setOnClickListener {
+            logoutHotelier()
+        }
     }
->>>>>>> 3674f7f4449215b33efd8fe8b95bb2bd3a37ea5e
+
+    private fun logoutHotelier() {
+        auth.signOut() // Sign out the user
+
+        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), HotelLoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish() // Close ProfileFragment and prevent going back
+    }
+
+
 }

@@ -107,6 +107,10 @@ class HotelInfoActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
+
         // Set up booking button
         bookButton.setOnClickListener {
             val checkIn = checkInDate.text.toString()

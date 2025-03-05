@@ -5,23 +5,16 @@
       <SelectionState runConfigName="OnboardingActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-
       <SelectionState runConfigName="SplashActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="LoginActivity">
-          <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="SearchActivity">
-          <option name="selectionMode" value="DROPDOWN" />
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="NavigationActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="HelpActivity">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="HotelierNavigationActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="SplashActivity">

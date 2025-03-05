@@ -13,6 +13,7 @@ import com.example.project_stay.R
 import com.example.project_stay.databinding.ActivityHotelLoginBinding
 import com.example.project_stay.repository.HotelRepositoryImpl
 import com.example.project_stay.viewmodel.HotelViewModel
+import com.google.android.play.core.integrity.v
 
 class HotelLoginActivity : AppCompatActivity() {
 
@@ -53,38 +54,21 @@ class HotelLoginActivity : AppCompatActivity() {
             val email: String = binding.emailInput.text.toString()
             val password: String = binding.passwordInput.text.toString()
 
-<<<<<<< HEAD
+
             if(email.isEmpty()){
                 binding.emailInput.error="Please enter your email"
             }else if(password.isEmpty()){
                 binding.passwordInput.error="Please enter the password"
             } else if (!isValidHotelEmail(email)) {
                 binding.emailInput.error = "Invalid email"
-            }else{
-                if(binding.rememberMe.isChecked){
-=======
-            if (email.isEmpty()) {
-                binding.emailInput.error = "Please enter your email"
-            } else if (password.isEmpty()) {
-                binding.passwordInput.error = "Please enter the password"
-            } else {
-                // Handle "Remember Me" functionality
-                if (binding.rememberMe.isChecked) {
->>>>>>> 3674f7f4449215b33efd8fe8b95bb2bd3a37ea5e
-                    val editor = sharedPreferences.edit()
-                    editor.putString("email", email)
-                    editor.putString("password", password)
-                    editor.apply()
-                }
+                Toast.makeText(this@HotelLoginActivity, "Select the correct user type", Toast.LENGTH_LONG).show()
 
-                // Perform login
+
                 hotelViewModel.login(email, password) { success, message, userId ->
                     if (success) {
                         Toast.makeText(this@HotelLoginActivity, message, Toast.LENGTH_LONG).show()
-
                         // Check if the profile is complete for this user
                         val isProfileComplete = sharedPreferences.getBoolean("isProfileComplete_$userId", false)
-
                         if (isProfileComplete) {
                             // Profile is complete, navigate to HotelierNavigationActivity
                             val intent = Intent(this@HotelLoginActivity, HotelierNavigationActivity::class.java)
@@ -110,6 +94,9 @@ class HotelLoginActivity : AppCompatActivity() {
             insets
         }
     }
+
+
+
 
     private fun isValidHotelEmail(email: String): Boolean {
         return email.startsWith("hotel", ignoreCase = true)

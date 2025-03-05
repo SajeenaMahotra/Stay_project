@@ -14,6 +14,10 @@ import com.example.project_stay.R
 import com.example.project_stay.adapter.HotelAdapter
 import com.example.project_stay.databinding.ActivitySearchBinding
 import com.example.project_stay.model.Hotel
+import com.example.project_stay.repository.HotelRepository
+import com.example.project_stay.repository.HotelRepositoryImpl
+import com.example.project_stay.viewmodel.HotelViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -28,6 +32,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var hotelAdapter: HotelAdapter
     private val hotelList = mutableListOf<Hotel>()
     private lateinit var locationFilter: AutoCompleteTextView
+    private val userId: String = ""
 
     // List of cities for suggestions
     private val cities = listOf(
@@ -44,8 +49,17 @@ class SearchActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         hotelsRef = database.getReference("hotels")
 
-        // Set up RecyclerView
-        hotelAdapter = HotelAdapter(this, hotelList)
+        // Retrieve user ID
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        // Initialize repository and ViewModel (assuming they are properly set up)
+        val hotelRepository = HotelRepositoryImpl()
+        val hotelViewModel = HotelViewModel(hotelRepository)
+        val auth = FirebaseAuth.getInstance()
+
+
+
+        hotelAdapter = HotelAdapter(this, hotelList,userId, hotelRepository, hotelViewModel, auth)
         binding.recyclerView.adapter = hotelAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 

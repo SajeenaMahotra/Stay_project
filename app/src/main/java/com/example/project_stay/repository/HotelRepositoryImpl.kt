@@ -354,7 +354,8 @@ class HotelRepositoryImpl: HotelRepository {
                 if (isWishlisted) {
                     hotelsRef.child(hotelId).get().addOnSuccessListener { hotelSnapshot ->
                         val hotel = hotelSnapshot.getValue(Hotel::class.java)
-                        hotel?.let { wishlistedHotels.add(it) }
+                        hotel?.let { Log.d("WishlistDebug", "Fetched Hotel: ${it.name}, Wishlisted: $isWishlisted")
+                            wishlistedHotels.add(it) }
 
                         // Check if all hotels have been fetched
                         if (wishlistedHotels.size == hotelIds.size) {
