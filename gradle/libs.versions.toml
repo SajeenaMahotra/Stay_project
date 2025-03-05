@@ -12,8 +12,11 @@ constraintlayout = "2.2.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 firebaseAuthKtx = "23.1.0"
-
+mockito = "5.7.0"
+androidxTest = "1.5.0"
 firebaseAuth = "23.1.0"
+junitKtx = "1.2.1"
+espresso = "3.5.1"
 
 
 [libraries]
@@ -27,8 +30,16 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
-
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxTest" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version = "3.5.1" }
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version = "3.5.1" }
+mockito-core = { module = "org.mockito:mockito-core", version = "4.0.0" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+
+
 
 
 [plugins]
